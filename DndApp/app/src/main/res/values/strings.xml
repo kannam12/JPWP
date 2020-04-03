@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">DndApp</string>
+        // tu są te stringi co można je zapisywać i potem odnosić się do nich poprzez id
+        //w sensie np. jak są różne języki
+
+    // tu mamy zawartość naszego spinnera z językami w ChatActivity
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
 </resources>

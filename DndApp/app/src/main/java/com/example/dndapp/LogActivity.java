@@ -13,4 +13,17 @@ public class LogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
     }
+
+// to jest ten magiczny moment kiedy dzbanię, bo nie chce się przejsc do ekranu czatu .... i wywala apke
+    public void goNextLog(View view) {
+
+        Intent intent1;
+        switch(view.getId()) {
+            case R.id.goInBtn:
+                intent1 = new Intent(LogActivity.this, ChatActivity.class);
+                startActivity(intent1);
+                break;
+        }
+
+    }
 }
