@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+//import android.widget.*;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class ChatActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
             android.R.layout.simple_spinner_item, jezyki_array);
     //final Spinner spinner = (Spinner)findViewById(R.id.spinner_jezyki);
+
     //spinner.setAdapter(adapter);
     //i czemu to jest na czerwono ta metoda setAdapter aaaaaaaaaaaaaaaaaaaaaaaaaaa ...>:C
 
