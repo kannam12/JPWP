@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">DndApp</string>
+    <string name="lan1">Kanoniczny</string>
+    <string name="lan2">Elficki</string>
+    <string name="lan3">Krasnoludzki</string>
+    <string name="lan4">Druidzki</string>
+    <string name="lan5">Smoczy</string>
+    <string name="lan6">Niebiański</string>
+    <string name="lan7">Piekielny</string>
+
+
         // tu są te stringi co można je zapisywać i potem odnosić się do nich poprzez id
         //w sensie np. jak są różne języki
 
@@ -8,11 +17,10 @@
         <item>Kanoniczny</item>
         <item>Elficki</item>
         <item>Krasnoludzki</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>Druidzki</item>
+        <item>Smoczy</item>
+        <item>Niebiański</item>
+        <item>Piekielny</item>
     </string-array>
 
 </resources>
