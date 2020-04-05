@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class LogActivity extends AppCompatActivity {
@@ -55,25 +56,25 @@ public class LogActivity extends AppCompatActivity {
     public void onCheckboxClicked(View view) {
         switch(view.getId()) {
             case R.id.commonCB:
-                avaliableLanguages[0] = true;
+                avaliableLanguages[0] = ((CheckBox)view).isChecked();
                 break;
             case R.id.lan2CB:
-                avaliableLanguages[1] = true;
+                avaliableLanguages[1] = ((CheckBox)view).isChecked();
                 break;
             case R.id.lan3CB:
-                avaliableLanguages[2] = true;
+                avaliableLanguages[2] = ((CheckBox)view).isChecked();
                 break;
             case R.id.lan4CB:
-                avaliableLanguages[3] = true;
+                avaliableLanguages[3] = ((CheckBox)view).isChecked();
                 break;
             case R.id.lan5CB:
-                avaliableLanguages[4] = true;
+                avaliableLanguages[4] = ((CheckBox)view).isChecked();
                 break;
             case R.id.lan6CB:
-                avaliableLanguages[5] = true;
+                avaliableLanguages[5] = ((CheckBox)view).isChecked();
                 break;
             case R.id.lan7CB:
-                avaliableLanguages[6] = true;
+                avaliableLanguages[6] = ((CheckBox)view).isChecked();
                 break;
 
         }
