@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-//import android.widget.*;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -15,24 +14,15 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
     }
 
+    public void addSpinner() {
 
-    public void main() {
-
-
-        //tymczasowo wstawiam tu liste(array) do spinnera
-        String[] jezyki_array = {"Kanoniczny", "Elficki", "Krasnoludzki", "Opcja 4", "Opcja 5"};
-
-        //robię obiekt mojego spinnera do wyboru języków
+        //https://developer.android.com/guide/topics/ui/controls/spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner_jezyki);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, jezyki_array);
-        //final Spinner spinner = (Spinner)findViewById(R.id.spinner_jezyki);
-
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.languages_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        //i czemu to jest na czerwono ta metoda setAdapter aaaaaaaaaaaaaaaaaaaaaaaaaaa ...>:C
+
+        //-----//
     }
-    //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.planets_array, android.R.layout.simple_spinner_item);
-    // Specify the layout to use when the list of choices appears
-    //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    // Apply the adapter to the spinner
-    //spinner.setAdapter(adapter);
 }

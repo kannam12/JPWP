@@ -15,7 +15,6 @@ public class LogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log);
     }
 
-    // to jest ten magiczny moment kiedy dzbanię, bo nie chce się przejsc do ekranu czatu .... i wywala apke
     public void goNextLog(View view) {
 
         Intent intent;
