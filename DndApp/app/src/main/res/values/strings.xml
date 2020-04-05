@@ -4,10 +4,10 @@
         //w sensie np. jak są różne języki
 
     // tu mamy zawartość naszego spinnera z językami w ChatActivity
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
+    <string-array name="languages_array">
+        <item>Kanoniczny</item>
+        <item>Elficki</item>
+        <item>Krasnoludzki</item>
         <item>Mars</item>
         <item>Jupiter</item>
         <item>Saturn</item>
