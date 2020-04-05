@@ -11,13 +11,13 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="Aby przejść dalej podaj swój nick oraz wybierz znane Ci języki;"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/nickTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/nickTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -31,91 +31,93 @@
         app:layout_constraintVertical_bias="0.307" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/commonCB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kanoniczny"
+        android:text="@string/lan1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.085" />
+        app:layout_constraintTop_toBottomOf="@+id/nickTxt"
+        app:layout_constraintVertical_bias="0.085"
+        android:onClick="onCheckboxClicked"/>
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/lan2CB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Elficki"
+        android:text="@string/lan2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/checkBox"
+        app:layout_constraintEnd_toEndOf="@+id/commonCB"
         app:layout_constraintHorizontal_bias="0.35"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintTop_toBottomOf="@+id/commonCB"
+        app:layout_constraintVertical_bias="0.064"
+        android:onClick="onCheckboxClicked"/>
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/lan3CB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="64dp"
-        android:text="Krasnoludzki"
+        android:text="@string/lan3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/checkBox"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox"
+        app:layout_constraintStart_toStartOf="@+id/commonCB"
+        app:layout_constraintTop_toBottomOf="@+id/commonCB"
         app:layout_constraintVertical_bias="0.088" />
 
     <CheckBox
-        android:id="@+id/checkBox4"
+        android:id="@+id/lan4CB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
-        android:text="Smoczy"
+        android:text="@string/lan4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="@+id/checkBox"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox3"
+        app:layout_constraintStart_toStartOf="@+id/commonCB"
+        app:layout_constraintTop_toBottomOf="@+id/lan3CB"
         app:layout_constraintVertical_bias="0.145" />
 
     <CheckBox
-        android:id="@+id/checkBox5"
+        android:id="@+id/lan5CB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Druidzki"
+        android:text="@string/lan5"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/checkBox"
+        app:layout_constraintEnd_toEndOf="@+id/commonCB"
         app:layout_constraintHorizontal_bias="0.405"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2"
+        app:layout_constraintTop_toBottomOf="@+id/lan2CB"
         app:layout_constraintVertical_bias="0.169" />
 
     <CheckBox
-        android:id="@+id/checkBox6"
+        android:id="@+id/lan6CB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Niebiański"
+        android:text="@string/lan6"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/checkBox"
+        app:layout_constraintEnd_toEndOf="@+id/commonCB"
         app:layout_constraintHorizontal_bias="0.443"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox5"
+        app:layout_constraintTop_toBottomOf="@+id/lan5CB"
         app:layout_constraintVertical_bias="0.28" />
 
     <CheckBox
-        android:id="@+id/checkBox7"
+        android:id="@+id/lan7CB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="60dp"
-        android:text="Piekielny"
+        android:text="@string/lan7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.738"
-        app:layout_constraintStart_toStartOf="@+id/checkBox"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox4"
+        app:layout_constraintStart_toStartOf="@+id/commonCB"
+        app:layout_constraintTop_toBottomOf="@+id/lan4CB"
         app:layout_constraintVertical_bias="0.28" />
 
     <Button
@@ -128,6 +130,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/nickTxt"
         app:layout_constraintVertical_bias="0.908" />
 </androidx.constraintlayout.widget.ConstraintLayout>
