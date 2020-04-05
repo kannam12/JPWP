@@ -16,12 +16,12 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     //tymczasowo wstawiam tu liste(array) do spinnera
-    String[] jezyki_array = {"Kanoniczny", "Elficki", "Krasnoludzki", "Opcja 4", "Opcja 5"};
+    //String[] jezyki_array = {"Kanoniczny", "Elficki", "Krasnoludzki", "Opcja 4", "Opcja 5"};
 
     //robię obiekt mojego spinnera do wyboru języków
-    Spinner spinner = (Spinner) findViewById(R.id.spinner_jezyki);
-    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-            android.R.layout.simple_spinner_item, jezyki_array);
+    //Spinner spinner = (Spinner) findViewById(R.id.spinner_jezyki);
+    //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+            //android.R.layout.simple_spinner_item, jezyki_array);
     //final Spinner spinner = (Spinner)findViewById(R.id.spinner_jezyki);
 
     //spinner.setAdapter(adapter);
