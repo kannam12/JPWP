@@ -23,7 +23,7 @@ public class ChatActivity extends AppCompatActivity {
 
         //pobieranie z poprzedniej aktywności dostępnych języków
         boolean[] avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
-        
+
     }
 
     public void addSpinner() {
