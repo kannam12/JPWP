@@ -44,6 +44,8 @@ public class ChatActivity extends AppCompatActivity {
         //Debugger
         Toast toast = Toast.makeText(this, Integer.toString(languagePersonalList.length),  Toast.LENGTH_SHORT);
         toast.show();
+        //Stworzenie spinnera. Zapomnieliśmy Go wywołać
+        addSpinner();
     }
 
     public void addSpinner() {
@@ -55,7 +57,7 @@ public class ChatActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);*/
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_jezyki);
+        Spinner spinner = findViewById(R.id.spinner_jezyki);
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,languagePersonalList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
