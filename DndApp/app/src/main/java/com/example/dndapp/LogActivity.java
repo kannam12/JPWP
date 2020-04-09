@@ -18,7 +18,8 @@ public class LogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
-
+        ///////////////////////////////////
+        mkCommonAsDefault(avaliableLanguages);      //kanoniczny jako defaultowy język
     }
 
     @Override
@@ -56,6 +57,13 @@ public class LogActivity extends AppCompatActivity {
         }
     }
 
+    public boolean[] mkCommonAsDefault(boolean[] avaliableLanguages){
+
+        avaliableLanguages[0] = true;
+        return avaliableLanguages;
+
+    }
+
 
     public void onCheckboxClicked(View view) {
         switch(view.getId()) {
@@ -71,7 +79,7 @@ public class LogActivity extends AppCompatActivity {
                 break;
             case R.id.lan3CB:
                 avaliableLanguages[2] = ((CheckBox)view).isChecked();
-                Toast toast2 = Toast.makeText(this, Boolean.toString(avaliableLanguages[2]),  Toast.LENGTH_SHORT);
+                Toast toast2 = Toast.makeText(this, Boolean.toString(avaliableLanguages[2]),  Toast.LENGTH_LONG);
                 toast2.show();
                 break;
             case R.id.lan4CB:
