@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 public class LogActivity extends AppCompatActivity {
 
-    String nick;
     boolean[] avaliableLanguages = new boolean[7]; //Wartość domyślna false
 
     @Override
@@ -24,19 +23,16 @@ public class LogActivity extends AppCompatActivity {
 
     public void goNextLog(View view) {
         EditText editText = (EditText)findViewById(R.id.nickTxt);
-        nick = editText.getText().toString();
+        String nick = editText.getText().toString();
 
         Intent intent;
         switch(view.getId()) {
             case R.id.goInBtn:
                 intent = new Intent(LogActivity.this, ChatActivity.class);
-                //intent.putExtra("is_host", false);
+                intent.putExtra("is_host", false);
                 intent.putExtra("nick", nick);
-                //avaliableLanguages[0] = ((CheckBox)view).isChecked();
-
                 intent.putExtra("avaliableLanguages", avaliableLanguages);
                 startActivity(intent);
-                // break;
         }
     }
 
