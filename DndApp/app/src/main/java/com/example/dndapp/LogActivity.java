@@ -18,6 +18,8 @@ public class LogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
+        ///////////////////////////////////
+        mkCommonAsDefault(avaliableLanguages);
 
     }
 
@@ -54,6 +56,13 @@ public class LogActivity extends AppCompatActivity {
                 startActivity(intent);
                 // break;
         }
+    }
+
+    public boolean[] mkCommonAsDefault(boolean[] avaliableLanguages){
+
+        avaliableLanguages[0] = true;
+        return avaliableLanguages;
+
     }
 
 
