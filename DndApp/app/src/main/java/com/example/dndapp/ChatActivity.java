@@ -21,15 +21,21 @@ public class ChatActivity extends AppCompatActivity {
     ///////////
         infoNick();
         mkPersonalLanguageList();
+        addSpinner();
+
 
         //Debugger
         //Toast toast = Toast.makeText(this, Integer.toString(languagePersonalList.length),  Toast.LENGTH_SHORT);
         //toast.show();
 
-        addSpinner();
+
     }
+
+
     public void mkPersonalLanguageList(){
+
         //wczytywanie tablicy z values/string.xml
+        //boolean is_host = getIntent().getBooleanExtra("is_host", false);
         languageList = getResources().getStringArray(R.array.languages_array);
         //wczytywanie tablicy zadeklarowanych w log activity języków
         boolean[] avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
@@ -48,7 +54,14 @@ public class ChatActivity extends AppCompatActivity {
                 counter++;
             }
         }
+     //   if (is_host) {
+      //      addSpinner(languageList);
+     //   }else{
+     //       mkPersonalLanguageList();
+     //       addSpinner(languagePersonalList);
+     //   }
     }
+
     public void infoNick(){
         //pobieranie info o nicku z log activity
         String nick = getIntent().getStringExtra("nick");
