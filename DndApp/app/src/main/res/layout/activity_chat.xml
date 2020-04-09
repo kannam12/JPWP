@@ -42,27 +42,27 @@
 
     <Spinner
         android:id="@+id/spinner_jezyki"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="317dp"
+        android:layout_height="27dp"
+        android:entries="@array/languages_array"
         app:layout_constraintBottom_toTopOf="@+id/chatETxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.981"
-        android:entries="@array/languages_array" />
+        app:layout_constraintVertical_bias="0.981" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="129dp"
-        android:layout_height="27dp"
+        android:layout_width="61dp"
+        android:layout_height="29dp"
         android:text="Język:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/spinner_jezyki"
-        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.882" />
+        app:layout_constraintVertical_bias="0.886" />
 
     <TextView
         android:id="@+id/nickInfoTxt2"
