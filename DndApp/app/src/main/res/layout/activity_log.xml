@@ -69,7 +69,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/commonCB"
         app:layout_constraintTop_toBottomOf="@+id/commonCB"
-        app:layout_constraintVertical_bias="0.088" />
+        app:layout_constraintVertical_bias="0.088"
+        android:onClick="onCheckboxClicked"/>
 
     <CheckBox
         android:id="@+id/lan4CB"
@@ -82,7 +83,8 @@
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="@+id/commonCB"
         app:layout_constraintTop_toBottomOf="@+id/lan3CB"
-        app:layout_constraintVertical_bias="0.145" />
+        app:layout_constraintVertical_bias="0.145"
+        android:onClick="onCheckboxClicked"/>
 
     <CheckBox
         android:id="@+id/lan5CB"
@@ -94,7 +96,8 @@
         app:layout_constraintHorizontal_bias="0.405"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lan2CB"
-        app:layout_constraintVertical_bias="0.169" />
+        app:layout_constraintVertical_bias="0.169"
+        android:onClick="onCheckboxClicked"/>
 
     <CheckBox
         android:id="@+id/lan6CB"
@@ -106,7 +109,8 @@
         app:layout_constraintHorizontal_bias="0.443"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lan5CB"
-        app:layout_constraintVertical_bias="0.28" />
+        app:layout_constraintVertical_bias="0.28"
+        android:onClick="onCheckboxClicked"/>
 
     <CheckBox
         android:id="@+id/lan7CB"
@@ -119,7 +123,8 @@
         app:layout_constraintHorizontal_bias="0.738"
         app:layout_constraintStart_toStartOf="@+id/commonCB"
         app:layout_constraintTop_toBottomOf="@+id/lan4CB"
-        app:layout_constraintVertical_bias="0.28" />
+        app:layout_constraintVertical_bias="0.28"
+        android:onClick="onCheckboxClicked"/>
 
     <Button
         android:id="@+id/goInBtn"

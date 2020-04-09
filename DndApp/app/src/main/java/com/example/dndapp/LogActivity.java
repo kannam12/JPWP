@@ -71,7 +71,7 @@ public class LogActivity extends AppCompatActivity {
                 break;
             case R.id.lan3CB:
                 avaliableLanguages[2] = ((CheckBox)view).isChecked();
-                Toast toast2 = Toast.makeText(this, Boolean.toString(avaliableLanguages[2]),  Toast.LENGTH_SHORT);
+                Toast toast2 = Toast.makeText(this, Boolean.toString(avaliableLanguages[2]),  Toast.LENGTH_LONG);
                 toast2.show();
                 break;
             case R.id.lan4CB:
