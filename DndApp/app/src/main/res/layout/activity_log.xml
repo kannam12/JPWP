@@ -6,136 +6,160 @@
     android:layout_height="match_parent"
     tools:context=".LogActivity">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Aby przejść dalej podaj swój nick oraz wybierz znane Ci języki;"
-        app:layout_constraintBottom_toTopOf="@+id/nickTxt"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="410dp"
+        android:layout_height="178dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/nickTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Nick"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintVertical_bias="1.0">
 
-    <CheckBox
-        android:id="@+id/commonCB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lan1"
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
+            android:text="Aby przejść dalej podaj swój nick oraz wybierz znane Ci języki;" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <EditText
+            android:id="@+id/hostIPText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="Enter host IP:"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:ems="10"
+            android:hint="Port:"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="411dp"
+        android:layout_height="349dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nickTxt"
-        app:layout_constraintVertical_bias="0.085"
-        android:onClick="onCheckboxClicked"
-        android:checked="true"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.921">
 
-    <CheckBox
-        android:id="@+id/lan2CB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/lan2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/commonCB"
-        app:layout_constraintHorizontal_bias="0.35"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commonCB"
-        app:layout_constraintVertical_bias="0.064"
-        android:onClick="onCheckboxClicked" />
+        <EditText
+            android:id="@+id/nickTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
+            android:ems="10"
+            android:hint="Wpisz swój nick:"
+            android:inputType="textPersonName" />
 
-    <CheckBox
-        android:id="@+id/lan3CB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:text="@string/lan3"
-        app:layout_constraintBottom_toBottomOf="parent"
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="43dp" />
+
+        <CheckBox
+            android:id="@+id/commonCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan1" />
+
+        <CheckBox
+            android:id="@+id/lan2CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan2" />
+
+        <CheckBox
+            android:id="@+id/lan3CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="64dp"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan3" />
+
+        <CheckBox
+            android:id="@+id/lan4CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan4" />
+
+        <CheckBox
+            android:id="@+id/lan5CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan5" />
+
+        <CheckBox
+            android:id="@+id/lan6CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan6" />
+
+        <CheckBox
+            android:id="@+id/lan7CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan7" />
+
+        <Button
+            android:id="@+id/goInBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
+            android:onClick="goNextLog"
+            android:text="Go In!" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="136dp"
+        android:layout_height="134dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/commonCB"
-        app:layout_constraintTop_toBottomOf="@+id/commonCB"
-        app:layout_constraintVertical_bias="0.088"
-        android:onClick="onCheckboxClicked"/>
-
-    <CheckBox
-        android:id="@+id/lan4CB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:text="@string/lan4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="@+id/commonCB"
-        app:layout_constraintTop_toBottomOf="@+id/lan3CB"
-        app:layout_constraintVertical_bias="0.145"
-        android:onClick="onCheckboxClicked"/>
-
-    <CheckBox
-        android:id="@+id/lan5CB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lan5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/commonCB"
-        app:layout_constraintHorizontal_bias="0.405"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lan2CB"
-        app:layout_constraintVertical_bias="0.169"
-        android:onClick="onCheckboxClicked"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/star_big_off" />
 
-    <CheckBox
-        android:id="@+id/lan6CB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lan6"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/commonCB"
-        app:layout_constraintHorizontal_bias="0.443"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lan5CB"
-        app:layout_constraintVertical_bias="0.28"
-        android:onClick="onCheckboxClicked"/>
-
-    <CheckBox
-        android:id="@+id/lan7CB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
-        android:text="@string/lan7"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.738"
-        app:layout_constraintStart_toStartOf="@+id/commonCB"
-        app:layout_constraintTop_toBottomOf="@+id/lan4CB"
-        app:layout_constraintVertical_bias="0.28"
-        android:onClick="onCheckboxClicked"/>
-
-    <Button
-        android:id="@+id/goInBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go In!"
-        android:onClick="goNextLog"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nickTxt"
-        app:layout_constraintVertical_bias="0.908" />
 </androidx.constraintlayout.widget.ConstraintLayout>

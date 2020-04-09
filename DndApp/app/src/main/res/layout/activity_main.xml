@@ -21,8 +21,8 @@
         android:id="@+id/goAheadBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go ahead!"
         android:onClick="goNextMain"
+        android:text="Go ahead (as a client)!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,13 +33,25 @@
         android:id="@+id/appInfoBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="App Info"
         android:onClick="goNextMain"
+        android:text="App Info"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/serverBtn"
+        app:layout_constraintVertical_bias="0.181" />
+
+    <Button
+        android:id="@+id/serverBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Be a Game master, be a server!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goAheadBtn"
-        app:layout_constraintVertical_bias="0.044" />
+        app:layout_constraintVertical_bias="0.121" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
