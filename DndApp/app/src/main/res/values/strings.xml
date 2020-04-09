@@ -9,8 +9,8 @@
     <string name="lan7">Piekielny</string>
 
 
-        // tu są te stringi co można je zapisywać i potem odnosić się do nich poprzez id
-        //w sensie np. jak są różne języki
+    // tu są te stringi co można je zapisywać i potem odnosić się do nich poprzez id
+    //w sensie np. jak są różne języki
 
     // tu mamy zawartość naszego spinnera z językami w ChatActivity
     <string-array name="languages_array">

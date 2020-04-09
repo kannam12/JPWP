@@ -20,7 +20,6 @@ public class LogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log);
         ///////////////////////////////////
         mkCommonAsDefault(avaliableLanguages);
-
     }
 
     public void goNextLog(View view) {
@@ -31,6 +30,7 @@ public class LogActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.goInBtn:
                 intent = new Intent(LogActivity.this, ChatActivity.class);
+                //intent.putExtra("is_host", false);
                 intent.putExtra("nick", nick);
                 //avaliableLanguages[0] = ((CheckBox)view).isChecked();
 

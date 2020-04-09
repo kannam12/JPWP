@@ -21,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(MainActivity.this, LogActivity.class);
                 startActivity(intent);
                 break;
-
+            case R.id.serverBtn:
+                intent = new Intent(MainActivity.this, MkServActivity.class);
+                startActivity(intent);
+                break;
             case R.id.appInfoBtn:
                 intent = new Intent(MainActivity.this, InfoActivity.class);
                 startActivity(intent);
