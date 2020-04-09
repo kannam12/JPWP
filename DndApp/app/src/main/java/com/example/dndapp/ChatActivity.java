@@ -23,7 +23,7 @@ public class ChatActivity extends AppCompatActivity {
         //pobieranie z poprzedniej aktywności i wyświetlanie nicku
         //Intent intent;
         String nick = getIntent().getStringExtra("nick");
-        TextView textView = findViewById(R.id.nickInfoTxt);
+        TextView textView = findViewById(R.id.nickInfoTxt2);
         textView.setText(nick);
         //pobieranie z poprzedniej aktywności dostępnych języków
         boolean[] avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
@@ -44,7 +44,7 @@ public class ChatActivity extends AppCompatActivity {
         //Debugger
         Toast toast = Toast.makeText(this, Integer.toString(languagePersonalList.length),  Toast.LENGTH_SHORT);
         toast.show();
-        //Stworzenie spinnera. Zapomnieliśmy Go wywołać
+        //Stworzenie spinnera. Zapomnieliśmy Go wywołać - xD typowo
         addSpinner();
     }
 
