@@ -19,8 +19,7 @@ public class LogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
         ///////////////////////////////////
-        mkCommonAsDefault(avaliableLanguages);
-
+        mkCommonAsDefault(avaliableLanguages);      //kanoniczny jako defaultowy język
     }
 
     @Override
