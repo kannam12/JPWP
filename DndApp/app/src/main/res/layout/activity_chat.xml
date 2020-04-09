@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,17 +9,24 @@
 
     <EditText
         android:id="@+id/chatETxt"
+        android:background="@android:color/transparent"
+        android:maxLines="6"
         android:layout_width="340dp"
         android:layout_height="52dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Chat..."
+        android:hint="Enter message..."
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
+
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -34,41 +42,41 @@
 
     <Spinner
         android:id="@+id/spinner_jezyki"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="317dp"
+        android:layout_height="27dp"
+        android:entries="@array/languages_array"
         app:layout_constraintBottom_toTopOf="@+id/chatETxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.981"
-        android:entries="@array/languages_array" />
+        app:layout_constraintVertical_bias="0.981" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="129dp"
-        android:layout_height="27dp"
+        android:layout_width="61dp"
+        android:layout_height="29dp"
         android:text="Język:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/spinner_jezyki"
-        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.882" />
+        app:layout_constraintVertical_bias="0.886" />
 
     <TextView
-        android:id="@+id/nickInfoTxt"
+        android:id="@+id/nickInfoTxt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/spinner_jezyki"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.124"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/nickInfoTxt1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.047" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/nickInfoTxt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Twój nick to:"
@@ -78,4 +86,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.04" />
+
+    <TextView
+        android:id="@+id/messageTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/kolorowy_dymek"
+        android:padding="8dp"
+        android:text="Co tam?"
+        android:textColor="#ffffff"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.809" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

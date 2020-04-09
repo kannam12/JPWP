@@ -11,21 +11,27 @@ import android.widget.Toast;
 public class ChatActivity extends AppCompatActivity {
     String[] languageList;
     String[] languagePersonalList;
+    ///////
+    String[] messagesList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+    ///////////
+        infoNick();
+        mkPersonalLanguageList();
 
-        //Pobieranie listy języków
-        //to wszystko poniżej miało być w onResume, ale jak chcędodać onResume to jest w klasie fragment i nie wiem na razie
+        //Debugger
+        //Toast toast = Toast.makeText(this, Integer.toString(languagePersonalList.length),  Toast.LENGTH_SHORT);
+        //toast.show();
+
+        addSpinner();
+    }
+    public void mkPersonalLanguageList(){
+        //wczytywanie tablicy z values/string.xml
         languageList = getResources().getStringArray(R.array.languages_array);
-
-        //pobieranie z poprzedniej aktywności i wyświetlanie nicku
-        //Intent intent;
-        String nick = getIntent().getStringExtra("nick");
-        TextView textView = findViewById(R.id.nickInfoTxt);
-        textView.setText(nick);
-        //pobieranie z poprzedniej aktywności dostępnych języków
+        //wczytywanie tablicy zadeklarowanych w log activity języków
         boolean[] avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
         int counter = 0;
         for (int i = 0; i < avaliableLanguages.length; i++) {
@@ -33,6 +39,7 @@ public class ChatActivity extends AppCompatActivity {
                 counter++;
             }
         }
+        //adaptowanie jednego do drugiego - KARTA FUZJI
         languagePersonalList = new String[counter];
         counter = 0;
         for (int i = 0; i < avaliableLanguages.length; i++) {
@@ -41,26 +48,18 @@ public class ChatActivity extends AppCompatActivity {
                 counter++;
             }
         }
-        //Debugger
-        Toast toast = Toast.makeText(this, Integer.toString(languagePersonalList.length),  Toast.LENGTH_SHORT);
-        toast.show();
-        //Stworzenie spinnera. Zapomnieliśmy Go wywołać
-        addSpinner();
     }
-
+    public void infoNick(){
+        //pobieranie info o nicku z log activity
+        String nick = getIntent().getStringExtra("nick");
+        TextView textView = findViewById(R.id.nickInfoTxt2);
+        textView.setText(nick);
+    }
     public void addSpinner() {
-
-        //https://developer.android.com/guide/topics/ui/controls/spinner
-       /*Spinner spinner = (Spinner) findViewById(R.id.spinner_jezyki);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.languages_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);*/
-
+        //wiadomo
         Spinner spinner = findViewById(R.id.spinner_jezyki);
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,languagePersonalList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        //-----//
     }
 }
