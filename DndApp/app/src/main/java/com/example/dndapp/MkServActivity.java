@@ -14,20 +14,20 @@ public class MkServActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mk_serv);
     }
+    //TODO: ja to mam szczęście absolutne do tych intencji xD jak się domyślasz gunwno działa xD
 
     public void goNextServ(View view) {
+        EditText editText = (EditText)findViewById(R.id.nickTxt);
+        String nick = editText.getText().toString();
 
         Intent intent;
         switch(view.getId()) {
             case R.id.goInServBtn:
                 intent = new Intent(MkServActivity.this, ChatActivity.class);
-                //intent.putExtra("nick", nick);
-                //avaliableLanguages[0] = ((CheckBox)view).isChecked();
+                intent.putExtra("nick", nick);
                 intent.putExtra("is_host", true);
 
-                //intent.putExtra("avaliableLanguages", avaliableLanguages);
                 startActivity(intent);
-                // break;
         }
     }
 }
