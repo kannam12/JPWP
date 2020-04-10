@@ -15,10 +15,13 @@ public class LogActivity extends AppCompatActivity {
     Toast toast;
     boolean[] avaliableLanguages= new boolean[7];
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
+        //Skoro domyślnie kanoniczny jest zaznaczony to trzeba ustawić mu domyślną wartość na true
+        avaliableLanguages[0] = true;
     }
 
     @Override
