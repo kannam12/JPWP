@@ -10,167 +10,182 @@
         android:id="@+id/hostIPText"
         android:layout_width="208dp"
         android:layout_height="46dp"
-        android:layout_marginBottom="24dp"
+        android:gravity="center_horizontal"
         android:hint="@string/enter_host_ip"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
+        app:layout_constraintBottom_toTopOf="@+id/goInBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.457" />
 
     <EditText
         android:id="@+id/nickTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:gravity="center_horizontal"
         android:hint="@string/enter_nick"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/goInBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.527" />
+        app:layout_constraintVertical_bias="0.635" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
         android:ems="10"
+        android:gravity="center_horizontal"
         android:hint="@string/enter_port"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/nickTxt"
+        app:layout_constraintBottom_toTopOf="@+id/goInBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.927" />
+        app:layout_constraintVertical_bias="0.546" />
 
     <CheckBox
         android:id="@+id/commonCB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:checked="true"
+        android:gravity="center_horizontal"
         android:onClick="onCheckboxClicked"
         android:text="@string/lan1"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nickTxt"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/nickTxt" />
 
     <TextView
         android:id="@+id/logInfoTxt"
         android:layout_width="186dp"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:text="@string/logInfo"
         app:layout_constraintBottom_toTopOf="@+id/hostIPText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.933" />
 
     <Button
         android:id="@+id/goInBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:onClick="goNextLog"
         android:text="@string/go_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.922" />
+        app:layout_constraintVertical_bias="0.949" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="136dp"
         android:layout_height="134dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/logInfoTxt"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/goInBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/star_big_off" />
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="423dp"
-        android:layout_height="140dp"
-        android:orientation="horizontal"
+        android:id="@+id/linearLayout"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/goInBtn"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975">
 
-        <LinearLayout
-            android:layout_width="201dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <CheckBox
+            android:id="@+id/lan2CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_horizontal"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan2" />
 
-            <CheckBox
-                android:id="@+id/lan2CB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginEnd="10dp"
-                android:onClick="onCheckboxClicked"
-                android:text="@string/lan2" />
+        <CheckBox
+            android:id="@+id/lan4CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_horizontal"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan4" />
 
-            <CheckBox
-                android:id="@+id/lan4CB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginEnd="10dp"
-                android:onClick="onCheckboxClicked"
-                android:text="@string/lan4" />
+        <CheckBox
+            android:id="@+id/lan6CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_horizontal"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan6" />
 
-            <CheckBox
-                android:id="@+id/lan6CB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginEnd="10dp"
-                android:onClick="onCheckboxClicked"
-                android:text="@string/lan6" />
+    </LinearLayout>
 
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/goInBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <CheckBox
+            android:id="@+id/lan3CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_horizontal"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan3" />
 
-            <CheckBox
-                android:id="@+id/lan3CB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="10dp"
-                android:onClick="onCheckboxClicked"
-                android:text="@string/lan3" />
+        <CheckBox
+            android:id="@+id/lan7CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_horizontal"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan7" />
 
-            <CheckBox
-                android:id="@+id/lan7CB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="10dp"
-                android:onClick="onCheckboxClicked"
-                android:text="@string/lan7" />
-
-            <CheckBox
-                android:id="@+id/lan5CB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="10dp"
-                android:onClick="onCheckboxClicked"
-                android:text="@string/lan5" />
-        </LinearLayout>
+        <CheckBox
+            android:id="@+id/lan5CB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_horizontal"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lan5" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

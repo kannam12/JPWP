@@ -49,6 +49,7 @@
         android:id="@+id/mkServTxt"
         android:layout_width="186dp"
         android:layout_height="53dp"
+        android:gravity="center_horizontal"
         android:text="@string/mkServInfo"
         app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="parent"
