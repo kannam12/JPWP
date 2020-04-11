@@ -13,6 +13,7 @@ public class LogActivity extends AppCompatActivity {
 
     boolean[] avaliableLanguages = new boolean[7]; //Wartość domyślna false
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
