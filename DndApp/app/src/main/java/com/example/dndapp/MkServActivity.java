@@ -14,10 +14,11 @@ public class MkServActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mk_serv);
     }
-    //TODO: ja to mam szczęście absolutne do tych intencji xD jak się domyślasz gunwno działa xD
+    //FIXME: Załatwione. Zwracaj uwagę na id elementów. Inne w kodzie, inne w xml i nie działą.
+    //TODO: Tak sobie jeszcze myślę, że skoro klient podaje port, to serwer też powinien mieć pole na to. Dzisiaj lub jutro dopiszę
 
     public void goNextServ(View view) {
-        EditText editText = (EditText)findViewById(R.id.nickTxt);
+        EditText editText = (EditText)findViewById(R.id.nickText);
         String nick = editText.getText().toString();
 
         Intent intent;

@@ -53,10 +53,6 @@ public class ChatActivity extends AppCompatActivity {
             }
             return languagePersonalList;
         }
-        //Debugger
-        Toast toast = Toast.makeText(this, Integer.toString(languagePersonalList.length),  Toast.LENGTH_SHORT);
-        toast.show();
-        addSpinner();
     }
 
     public void infoNick(){
