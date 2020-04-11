@@ -56,7 +56,7 @@
         android:id="@+id/textView6"
         android:layout_width="61dp"
         android:layout_height="29dp"
-        android:text="@string/jezyk"
+        android:text="@string/chat_lan1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/spinner_jezyki"
         app:layout_constraintHorizontal_bias="0.571"
