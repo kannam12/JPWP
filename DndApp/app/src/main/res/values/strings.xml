@@ -8,9 +8,26 @@
     <string name="lan6">Niebiański</string>
     <string name="lan7">Piekielny</string>
 
+    <string name="mainInfo">Hello Adventurer!</string>
+    <string name="mkServInfo">Aby połączyć się jako serwer wpisz numer portu oraz swój nick:</string>
+    <string name="logInfo">Aby przejść dalej podaj swój nick oraz wybierz znane Ci języki:</string>
+
+    <string name="mainBtn2mkServ">Be a Game master, be a server</string>
+    <string name="mainBtn2log">Go ahead (as a client)</string>
+    <string name="mainBtn2info">Show me an app info</string>
+
+    <string name="enter_host_ip">Enter host IP:</string>
+    <string name="enter_port">Port:</string>
+    <string name="enter_nick">Wpisz swój nick:</string>
+    <string name="enter_message">Enter message…</string>
+
+    <string name="go_in">Go In!</string>
+    <string name="chat_lan1">Język:</string>
+    <string name="chat_nick1">Twój nick to:</string>
+
 
     // tu są te stringi co można je zapisywać i potem odnosić się do nich poprzez id
-    //w sensie np. jak są różne języki
+    // w sensie np. jak są różne języki
 
     // tu mamy zawartość naszego spinnera z językami w ChatActivity
     <string-array name="languages_array">
