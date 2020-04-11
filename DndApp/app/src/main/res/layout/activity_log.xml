@@ -6,90 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".LogActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="371dp"
-        android:layout_height="321dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+    <EditText
+        android:id="@+id/hostIPText"
+        android:layout_width="208dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="24dp"
+        android:hint="@string/enter_host_ip"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editText3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.875">
+        app:layout_constraintVertical_bias="1.0" />
 
-        <TextView
-            android:id="@+id/logInfoTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginRight="60dp"
-            android:text="@string/logInfo" />
+    <EditText
+        android:id="@+id/nickTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_nick"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.527" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:ems="10"
+        android:hint="@string/enter_port"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/nickTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.927" />
 
-        <EditText
-            android:id="@+id/hostIPText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:hint="@string/enter_host_ip"
-            android:inputType="textPersonName" />
+    <CheckBox
+        android:id="@+id/commonCB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/lan1"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nickTxt"
+        app:layout_constraintVertical_bias="0.5" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
-
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:ems="10"
-            android:hint="@string/port"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
-        <EditText
-            android:id="@+id/nickTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginRight="60dp"
-            android:ems="10"
-            android:hint="@string/enter_nick"
-            android:inputType="textPersonName" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="52dp" />
-
-        <CheckBox
-            android:id="@+id/commonCB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:checked="true"
-            android:onClick="onCheckboxClicked"
-            android:text="@string/lan1" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/logInfoTxt"
+        android:layout_width="186dp"
+        android:layout_height="wrap_content"
+        android:text="@string/logInfo"
+        app:layout_constraintBottom_toTopOf="@+id/hostIPText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/goInBtn"
@@ -109,7 +90,7 @@
         android:layout_width="136dp"
         android:layout_height="134dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/logInfoTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
