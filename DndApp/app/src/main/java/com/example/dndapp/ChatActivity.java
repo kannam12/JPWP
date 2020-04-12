@@ -2,15 +2,35 @@ package com.example.dndapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.icu.util.Output;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ChatActivity extends AppCompatActivity {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ChatActivity extends AppCompatActivity{
 
     String[] messagesList;
+    private EditText editMessage;
+    private TextView chatMessages;
+    private boolean loop = true;
+    final Handler handler1 = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +39,110 @@ public class ChatActivity extends AppCompatActivity {
     ////////////////////////////////////////////
         infoNick();
         addSpinner(mkPersonalLanguageList());
-
-        //Debugger
-        //Toast toast = Toast.makeText(this, Integer.toString(languagePersonalList.length),  Toast.LENGTH_SHORT);
-        //toast.show();
+        //ImageButton sendButton = findViewById(R.id.sendBtn);
+        editMessage = (EditText) findViewById(R.id.chatETxt);
+        chatMessages = (TextView) findViewById(R.id.replyFromServer);
     }
+
+
+    public void onClick (View view) {
+        switch (view.getId()) {
+            case R.id.sendBtn:
+                if (isHost()) {
+                    startServerSocket();
+
+                } else {
+                    sendMessage(editMessage.getText().toString());
+                }
+                break;
+        }
+    }
+
+    private void sendMessage (final String message) {
+        if (!isHost()) {
+            final Handler handler = new Handler();
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Socket s = new Socket("10.0.2.16", 9002);
+                        OutputStream out = s.getOutputStream();
+                        PrintWriter output = new PrintWriter(out);
+                        output.println(message);
+                        output.flush();
+                        BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                        final String str = input.readLine();
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run () {
+                                String s = chatMessages.getText().toString();
+                                if(str.trim().length() != 0) {
+                                    chatMessages.setText(s + "\nSerwer: " + str);
+                                }
+                            }
+                        });
+                    }catch (IOException e) {
+                        chatMessages.setText("Client failed");
+                    }
+                }
+            });
+            thread.start();
+        }
+    }
+
+    private void startServerSocket () {
+        Thread thread = new Thread(new Runnable() {
+            private String stringDataTemp = null;
+            @Override
+            public void run() {
+                try {
+                    ServerSocket sS = new ServerSocket(9002);
+                    while (loop) {
+                        Socket s = sS.accept();
+                        BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                        PrintWriter output = new PrintWriter(s.getOutputStream());
+
+                        stringDataTemp = input.readLine();
+                        output.println("Response: " + stringDataTemp);
+                        output.flush();
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        updateUI(stringDataTemp);
+                        if (stringDataTemp.equalsIgnoreCase("STOP")) {
+                            loop = false;
+                            output.close();
+                            s.close();
+                            break;
+                        }
+                        output.close();
+                        s.close();
+
+                    }
+                    sS.close();
+                } catch (IOException e) {
+                    chatMessages.setText("Server failed");
+                }
+            }
+        });
+        thread.start();
+    }
+
+    private void updateUI (final String stringDataTemp) {
+        handler1.post(new Runnable() {
+            @Override
+            public void run() {
+                String s = chatMessages.getText().toString();
+                if (stringDataTemp.trim().length() != 0) {
+                    chatMessages.setText(s + "\nGlient:" + stringDataTemp);
+                }
+            }
+        });
+    }
+
 
     public String[] mkPersonalLanguageList(){
 
@@ -55,6 +174,11 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    public boolean isHost() {
+        Boolean isHost = getIntent().getBooleanExtra("is_host", false);
+        return isHost;
+
+    }
     public void infoNick(){
         //pobieranie info o nicku z log/serv activity
         String nick = getIntent().getStringExtra("nick");
