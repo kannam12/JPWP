@@ -28,12 +28,14 @@ import java.net.UnknownHostException;
 
 public class ChatActivity extends AppCompatActivity{
 
-    String[] messagesList;
+    //String[] messagesList;
     private EditText editMessage;
     private TextView chatMessages;
     private boolean loop = true;
     //final Handler handler1 = new Handler();
     public static int port = 44100;
+    int local_port = 4444;      //tu były próbowane rediry
+    int serv_port = 4400;
 
 
     public Socket socket;
@@ -71,7 +73,9 @@ public class ChatActivity extends AppCompatActivity{
     //Metody klienta
     public void cliListenSocket () {
         try {
-            socket = new Socket ("10.0.2.16", port);
+            socket = new Socket ("10.0.2.2", local_port);
+            Toast toast = Toast.makeText(this, "poprawne połączenie", Toast.LENGTH_SHORT);
+            toast.show();
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while(loop){
@@ -79,12 +83,15 @@ public class ChatActivity extends AppCompatActivity{
                 String s = chatMessages.getText().toString();
                 chatMessages.setText(s + "\n" + line);
             }
+
         } catch (UnknownHostException e){
-            Log.d("tag", e.getMessage());
+            //Log.d("tag", e.getMessage());
+            Log.d("tag", "mesydz");
             Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
             toast.show();
         } catch (IOException e){
-            Log.d("tag", e.getMessage());
+            //Log.d("tag", e.getMessage());
+            Log.d("tag", "mesydz");
             Toast toast2 = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
             toast2.show();
         }
@@ -111,8 +118,10 @@ public class ChatActivity extends AppCompatActivity{
     //Metody serwera
     public void servListenSocket () {
         try {
-            server = new ServerSocket(port);
+            server = new ServerSocket(serv_port);
             socket = server.accept();
+            Toast toast = Toast.makeText(this, "poprawne połączenie", Toast.LENGTH_SHORT);
+            toast.show();
         } catch (IOException e) {
             Log.d("tag", e.getMessage());
             Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
