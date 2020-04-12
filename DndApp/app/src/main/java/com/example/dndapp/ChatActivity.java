@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.icu.util.Output;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class ChatActivity extends AppCompatActivity{
 
@@ -30,8 +32,15 @@ public class ChatActivity extends AppCompatActivity{
     private EditText editMessage;
     private TextView chatMessages;
     private boolean loop = true;
-    final Handler handler1 = new Handler();
+    //final Handler handler1 = new Handler();
     public static int port = 44100;
+
+
+    public Socket socket;
+    public PrintWriter out;
+    public BufferedReader in;
+    public ServerSocket server;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +51,80 @@ public class ChatActivity extends AppCompatActivity{
         //ImageButton sendButton = findViewById(R.id.sendBtn);
         editMessage = (EditText) findViewById(R.id.chatETxt);
         chatMessages = (TextView) findViewById(R.id.replyFromServer);
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (isHost()) {
+                    servListenSocket();
+                } else {
+                    cliListenSocket();
+                }
+            }
+
+        });
+        thread.start();
     }
 
 
+/////////////////////////////////////////////////////////
+    //Metody klienta
+    public void cliListenSocket () {
+        try {
+            socket = new Socket ("10.0.2.16", port);
+            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            while(loop){
+                String line = in.readLine();
+                String s = chatMessages.getText().toString();
+                chatMessages.setText(s + "\n" + line);
+            }
+        } catch (UnknownHostException e){
+            Log.d("tag", e.getMessage());
+            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
+        } catch (IOException e){
+            Log.d("tag", e.getMessage());
+            Toast toast2 = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+            toast2.show();
+        }
+    }
+    public void onClick (View view) {
+        switch (view.getId()){
+            case R.id.sendBtn:
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                    if (isHost()) {
+
+                    } else {
+                        String text = editMessage.getText().toString();
+                        out.println(text);
+                        editMessage.setText("");
+                    }}
+                });
+                thread.start();
+                break;
+        }
+    }
+//////////////////////////////////////////////
+    //Metody serwera
+    public void servListenSocket () {
+        try {
+            server = new ServerSocket(port);
+            socket = server.accept();
+        } catch (IOException e) {
+            Log.d("tag", e.getMessage());
+            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        //while (true){
+
+        //}
+    }
+
+//////////////////////////////////////////////////
+/*
     public void onClick (View view) {
         switch (view.getId()) {
             case R.id.sendBtn:
@@ -65,7 +145,6 @@ public class ChatActivity extends AppCompatActivity{
             public void run() {
                 try {
                     Socket s = new Socket("10.0.2.16", port);
-                    chatMessages.setText("Failed 1");
                     OutputStream out = s.getOutputStream();
                     PrintWriter output = new PrintWriter(out);
                     output.println(message);
@@ -82,7 +161,7 @@ public class ChatActivity extends AppCompatActivity{
                         }
 
                     });
-                    s.close();
+
                 }catch (IOException e) {
                     String s = chatMessages.getText().toString();
                     chatMessages.setText(s + "Client failed");
@@ -101,20 +180,19 @@ public class ChatActivity extends AppCompatActivity{
                 try {
                     ServerSocket sS = new ServerSocket(port);
                     chatMessages.setText("Fail 1");
+
+                    Socket s = sS.accept();
+                    BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                    PrintWriter output = new PrintWriter(s.getOutputStream());
                     while (loop) {
-                        Socket s = sS.accept();
-                        BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                        PrintWriter output = new PrintWriter(s.getOutputStream());
+
 
                         stringDataTemp = input.readLine();
                         output.println("Response: " + stringDataTemp);
                         output.flush();
 
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        Thread.sleep(1000);
+
                         updateUI(stringDataTemp);
                         if (stringDataTemp.equalsIgnoreCase("STOP")) {
                             loop = false;
@@ -122,12 +200,12 @@ public class ChatActivity extends AppCompatActivity{
                             s.close();
                             break;
                         }
-                        output.close();
-                        s.close();
 
                     }
+                    output.close();
+                    s.close();
                     sS.close();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     chatMessages.setText(e.toString());
                     e.printStackTrace();
                 }
@@ -135,6 +213,7 @@ public class ChatActivity extends AppCompatActivity{
         });
         thread.start();
     }
+
 
     private void updateUI (final String stringDataTemp) {
         handler1.post(new Runnable() {
@@ -147,7 +226,7 @@ public class ChatActivity extends AppCompatActivity{
             }
         });
     }
-
+*/
 
     public String[] mkPersonalLanguageList(){
 
