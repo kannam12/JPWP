@@ -31,7 +31,7 @@ public class ChatActivity extends AppCompatActivity{
     private TextView chatMessages;
     private boolean loop = true;
     final Handler handler1 = new Handler();
-
+    public static int port = 44100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,36 +59,39 @@ public class ChatActivity extends AppCompatActivity{
     }
 
     private void sendMessage (final String message) {
-        if (!isHost()) {
-            final Handler handler = new Handler();
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Socket s = new Socket("10.0.2.16", 9002);
-                        OutputStream out = s.getOutputStream();
-                        PrintWriter output = new PrintWriter(out);
-                        output.println(message);
-                        output.flush();
-                        BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                        final String str = input.readLine();
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run () {
-                                String s = chatMessages.getText().toString();
-                                if(str.trim().length() != 0) {
-                                    chatMessages.setText(s + "\nSerwer: " + str);
-                                }
+        final Handler handler = new Handler();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Socket s = new Socket("10.0.2.16", port);
+                    chatMessages.setText("Failed 1");
+                    OutputStream out = s.getOutputStream();
+                    PrintWriter output = new PrintWriter(out);
+                    output.println(message);
+                    output.flush();
+                    BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                    final String str = input.readLine();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run () {
+                            String s = chatMessages.getText().toString();
+                            if(str.trim().length() != 0) {
+                                chatMessages.setText(s + "\nSerwer: " + str);
                             }
-                        });
-                    }catch (IOException e) {
-                        chatMessages.setText("Client failed");
-                    }
+                        }
+
+                    });
+                    s.close();
+                }catch (IOException e) {
+                    String s = chatMessages.getText().toString();
+                    chatMessages.setText(s + "Client failed");
                 }
-            });
-            thread.start();
-        }
+            }
+        });
+        thread.start();
     }
+
 
     private void startServerSocket () {
         Thread thread = new Thread(new Runnable() {
@@ -96,7 +99,8 @@ public class ChatActivity extends AppCompatActivity{
             @Override
             public void run() {
                 try {
-                    ServerSocket sS = new ServerSocket(9002);
+                    ServerSocket sS = new ServerSocket(port);
+                    chatMessages.setText("Fail 1");
                     while (loop) {
                         Socket s = sS.accept();
                         BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -124,7 +128,8 @@ public class ChatActivity extends AppCompatActivity{
                     }
                     sS.close();
                 } catch (IOException e) {
-                    chatMessages.setText("Server failed");
+                    chatMessages.setText(e.toString());
+                    e.printStackTrace();
                 }
             }
         });
