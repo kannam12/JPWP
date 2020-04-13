@@ -35,7 +35,7 @@ public class ChatActivity extends AppCompatActivity{
     //final Handler handler1 = new Handler();
     public static int port = 44100;
     int local_port = 4444;      //tu były próbowane rediry
-    int serv_port = 4400;
+    int serv_listen_port = 4400;
 
 
     public Socket socket;
@@ -50,6 +50,7 @@ public class ChatActivity extends AppCompatActivity{
     ////////////////////////////////////////////
         infoNick();
         addSpinner(mkPersonalLanguageList());
+    ///////////////////////////
         //ImageButton sendButton = findViewById(R.id.sendBtn);
         editMessage = (EditText) findViewById(R.id.chatETxt);
         chatMessages = (TextView) findViewById(R.id.replyFromServer);
@@ -73,7 +74,7 @@ public class ChatActivity extends AppCompatActivity{
     //Metody klienta
     public void cliListenSocket () {
         try {
-            socket = new Socket ("10.0.2.2", local_port);
+            socket = new Socket ("10.0.2.1", local_port);
             Toast toast = Toast.makeText(this, "poprawne połączenie", Toast.LENGTH_SHORT);
             toast.show();
             out = new PrintWriter(socket.getOutputStream(), true);
@@ -118,7 +119,7 @@ public class ChatActivity extends AppCompatActivity{
     //Metody serwera
     public void servListenSocket () {
         try {
-            server = new ServerSocket(serv_port);
+            server = new ServerSocket(serv_listen_port);
             socket = server.accept();
             Toast toast = Toast.makeText(this, "poprawne połączenie", Toast.LENGTH_SHORT);
             toast.show();
