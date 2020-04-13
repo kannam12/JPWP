@@ -23,16 +23,17 @@ import java.net.UnknownHostException;
 public class ChatActivity extends AppCompatActivity{
 
     String nick;
+    int port;
+    String serverIP;
+
     int selectedLanguageID;
-
-
 
     //String[] messagesList;
     private EditText editMessage;
     private TextView chatMessages;
     private boolean loop = true;
     //final Handler handler1 = new Handler();
-    public static int port = 44100;
+    //public static int port = 44100;
 
     public Socket socket;
     public PrintWriter out;
@@ -44,7 +45,7 @@ public class ChatActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
     ////////////////////////////////////////////
-        infoNick();
+        extraInfo();
         addSpinner(mkPersonalLanguageList());
     ///////////////////////////
         //ImageButton sendButton = findViewById(R.id.sendBtn);
@@ -60,7 +61,6 @@ public class ChatActivity extends AppCompatActivity{
                     cliListenSocket();
                 }
             }
-
         });
         thread.start();
     }
@@ -68,7 +68,6 @@ public class ChatActivity extends AppCompatActivity{
     //Metody klienta
     public void cliListenSocket () {
         try {
-
             socket = new Socket ("10.0.2.16", port);
 
             out = new PrintWriter(socket.getOutputStream(), true);
@@ -244,8 +243,9 @@ public class ChatActivity extends AppCompatActivity{
             //wczytywanie tablicy zadeklarowanych w log activity języków, jesli nie host
             boolean[] avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
             int counter = 0;
-            for (int i = 0; i < avaliableLanguages.length; i++) {
-                if (avaliableLanguages[i]) {
+            assert avaliableLanguages != null;
+            for (boolean avaliableLanguage : avaliableLanguages) {
+                if (avaliableLanguage) {
                     counter++;
                 }
             }
@@ -263,21 +263,26 @@ public class ChatActivity extends AppCompatActivity{
     }
 
     public boolean isHost() {
-        Boolean isHost = getIntent().getBooleanExtra("is_host", false);
-        return isHost;
-
+        return getIntent().getBooleanExtra("is_host", false);
     }
 
-    public void infoNick(){
+    public void extraInfo(){
         //pobieranie info o nicku z log/serv activity
         nick = getIntent().getStringExtra("nick");
         TextView textView = findViewById(R.id.nickInfoTxt2);
         textView.setText(nick);
+
+        String port_tmp = getIntent().getStringExtra("port");
+        textView = findViewById(R.id.portInfoTxt2);
+        textView.setText(port_tmp);
+        assert port_tmp != null;
+        port = Integer.parseInt(port_tmp);
+
+        serverIP = getIntent().getStringExtra("servIP");
+        textView = findViewById(R.id.IPinfoTxt2);
+        textView.setText(serverIP);
     }
     public void addSpinner(final String[] finalLanguageList) {
-        //wiadomo
-        //TODO: pytanie: czemu dwie linijki niżej jest na żółto?
-        //FIXME: naprawiodend, a temu: "That's because ArrayAdapter expects you to specify which type of object it will manipulate."
 
         Spinner spinner = findViewById(R.id.spinner_jezyki);
 
