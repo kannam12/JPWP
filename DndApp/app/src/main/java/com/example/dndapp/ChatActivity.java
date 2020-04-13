@@ -34,8 +34,8 @@ public class ChatActivity extends AppCompatActivity{
     private boolean loop = true;
     //final Handler handler1 = new Handler();
     public static int port = 44100;
-    int local_port = 4444;      //tu były próbowane rediry
-    int serv_listen_port = 4400;
+    int languageID;
+
 
 
     public Socket socket;
@@ -102,7 +102,13 @@ public class ChatActivity extends AppCompatActivity{
 
                     } else {
                         String text = editMessage.getText().toString();
+                    //TODO: w tym miejscu dopisać dopisywanie flag i atrybutów itp.(?) - osobną funckją ofc
+                        /////poniższy fragment będzie funkcją (może w osobnej klasie do opakowywania komunikatów?////////////
+                        String text_opakowany = "MSG " + languageID + " " + text;
 
+
+
+                        //////////////////
                         out.println(text);
                         editMessage.setText("");
                     }}
