@@ -26,7 +26,6 @@ public class ChatActivity extends AppCompatActivity{
     String nick;
     int port;
     String serverIP;
-
     int selectedLanguageID;
 
     private EditText editMessage;
@@ -68,7 +67,7 @@ public class ChatActivity extends AppCompatActivity{
     //Metody klienta
     public void cliListenSocket () {
         try {
-            socket = new Socket( serverIP, port);
+            socket = new Socket (serverIP, port);
 
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
