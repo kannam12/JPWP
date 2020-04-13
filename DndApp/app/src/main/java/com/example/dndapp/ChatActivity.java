@@ -68,7 +68,6 @@ public class ChatActivity extends AppCompatActivity{
     public void cliListenSocket () {
         try {
             socket = new Socket (serverIP, port);
-
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while(loop){
