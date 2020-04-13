@@ -21,7 +21,7 @@ public class MkServActivity extends AppCompatActivity {
         editText = (EditText)findViewById(R.id.portETxt);
         String port = editText.getText().toString();
         //TODO: pobieranie IP servera (opcjonalnie jako osoobna funckja String, być może w klasie Network)
-        String servIP = "10.0.0.16";
+        String servIP = "10.0.2.16";
 
         Intent intent;
         switch(view.getId()) {

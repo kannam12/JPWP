@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity{
 
@@ -28,12 +29,9 @@ public class ChatActivity extends AppCompatActivity{
 
     int selectedLanguageID;
 
-    //String[] messagesList;
     private EditText editMessage;
     private TextView chatMessages;
     private boolean loop = true;
-    //final Handler handler1 = new Handler();
-    //public static int port = 44100;
 
     public Socket socket;
     public PrintWriter out;
@@ -68,7 +66,7 @@ public class ChatActivity extends AppCompatActivity{
     //Metody klienta
     public void cliListenSocket () {
         try {
-            socket = new Socket ("10.0.2.16", port);
+            socket = new Socket (serverIP, port);
 
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -77,12 +75,8 @@ public class ChatActivity extends AppCompatActivity{
                 chatMessages.append(line);
             }
 
-        } catch (UnknownHostException e){
-            //Log.d("tag", e.getMessage());
-            Log.d("tag", "mesydz");
         } catch (IOException e){
-            //Log.d("tag", e.getMessage());
-            Log.d("tag", "mesydz");
+            Log.d("tag", Objects.requireNonNull(e.getMessage()));
         }
     }
     public void onClick (View view) {
