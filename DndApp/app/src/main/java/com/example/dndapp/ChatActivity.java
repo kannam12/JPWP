@@ -102,6 +102,7 @@ public class ChatActivity extends AppCompatActivity{
 
                     } else {
                         String text = editMessage.getText().toString();
+
                         out.println(text);
                         editMessage.setText("");
                     }}
