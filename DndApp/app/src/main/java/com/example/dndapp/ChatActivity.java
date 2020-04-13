@@ -2,17 +2,12 @@ package com.example.dndapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.icu.util.Output;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +15,6 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -34,9 +28,7 @@ public class ChatActivity extends AppCompatActivity{
     private boolean loop = true;
     //final Handler handler1 = new Handler();
     public static int port = 44100;
-    int languageID;
-
-
+    int selectedLanguageID;
 
     public Socket socket;
     public PrintWriter out;
@@ -101,15 +93,11 @@ public class ChatActivity extends AppCompatActivity{
                     if (isHost()) {
 
                     } else {
-                        String text = editMessage.getText().toString();
-                    //TODO: w tym miejscu dopisać dopisywanie flag i atrybutów itp.(?) - osobną funckją ofc
-                        /////poniższy fragment będzie funkcją (może w osobnej klasie do opakowywania komunikatów?////////////
-                        String text_opakowany = "MSG " + languageID + " " + text;
+                        String chatMessage = editMessage.getText().toString();
 
+                        chatMessage = "MSG " + selectedLanguageID + " " + chatMessage;
 
-
-                        //////////////////
-                        out.println(text);
+                        out.println(chatMessage);
                         editMessage.setText("");
                     }}
                 });
@@ -283,14 +271,40 @@ public class ChatActivity extends AppCompatActivity{
         TextView textView = findViewById(R.id.nickInfoTxt2);
         textView.setText(nick);
     }
-    public void addSpinner(String[] finalLanguageList) {
+    public void addSpinner(final String[] finalLanguageList) {
         //wiadomo
         //TODO: pytanie: czemu dwie linijki niżej jest na żółto?
-        //FIXME: a temu: "That's because ArrayAdapter expects you to specify which type of object it will manipulate."
-        // naprawioned:
+        //FIXME: naprawiodend, a temu: "That's because ArrayAdapter expects you to specify which type of object it will manipulate."
+
         Spinner spinner = findViewById(R.id.spinner_jezyki);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, finalLanguageList);
+
+    ////////Dzielenie na ID języka i jego nazwę/////////
+        final int[] finalLanguageID = new int[finalLanguageList.length];
+        final String[] finalLanguageShow = new String[finalLanguageList.length];
+
+        for (int i = 0; i < finalLanguageList.length; i++){
+            String[] tmp = finalLanguageList[i].split("@", 2);
+            finalLanguageID[i] = Integer.parseInt(tmp[0]);
+            finalLanguageShow[i] = tmp[1];
+        }
+    //////////////////////////////////////////////////
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, finalLanguageShow);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int choiceID, long position) {
+                selectedLanguageID = finalLanguageID[(int)position];
+                Toast.makeText(ChatActivity.this, "Wybrałeś język: " + (finalLanguageShow[choiceID]) +", zapisano ID: " + selectedLanguageID, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                selectedLanguageID = finalLanguageID[0];
+            }
+        });
     }
 }
