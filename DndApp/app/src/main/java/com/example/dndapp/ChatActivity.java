@@ -44,6 +44,8 @@ public class ChatActivity extends AppCompatActivity{
         setContentView(R.layout.activity_chat);
     ////////////////////////////////////////////
         extraInfo();
+        Toast toast = Toast.makeText(ChatActivity.this, serverIP, Toast.LENGTH_SHORT);
+        toast.show();
         addSpinner(mkPersonalLanguageList());
     ///////////////////////////
         //ImageButton sendButton = findViewById(R.id.sendBtn);
@@ -66,7 +68,7 @@ public class ChatActivity extends AppCompatActivity{
     //Metody klienta
     public void cliListenSocket () {
         try {
-            socket = new Socket (serverIP, port);
+            socket = new Socket( serverIP, port);
 
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
