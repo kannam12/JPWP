@@ -84,7 +84,7 @@ public class ChatActivity extends AppCompatActivity{
                 int counter = 0;
                 avaliableLanguages = getAvaliableLanguages();
                 for (int i = 0; i < avaliableLanguages.length; i++){
-                     if (Integer.parseInt(receivedLanguageID) == i) {
+                     if (Integer.parseInt(receivedLanguageID) == i && avaliableLanguages[i]) {
                          counter = 1;
                     }
                  }
