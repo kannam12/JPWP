@@ -26,6 +26,7 @@ public class ChatActivity extends AppCompatActivity{
     int port;
     String serverIP;
     int selectedLanguageID;
+    boolean[] avaliableLanguages;
 
     //String[] messagesList;
     private EditText editMessage;
@@ -75,11 +76,22 @@ public class ChatActivity extends AppCompatActivity{
 
                 String[] tmp = line.split(" ",4);
                 String statement = tmp[0];      //MSG
-                String languageID = tmp[1];
+                String receivedLanguageID = tmp[1];
                 String senderNick = tmp[2];
                 String message = tmp[3];
 
-                chatMessages.append(nick + ": " + message);
+                int counter = 0;
+                avaliableLanguages = getAvaliableLanguages();
+                for (int i = 0; i < avaliableLanguages.length; i++){
+                     if (Integer.parseInt(receivedLanguageID) == i) {
+                         counter = 1;
+                    }
+                 }
+                if (counter == 0){
+                    message = "!@#$%^&*()_+{}|:";
+                }
+                //////////////////////
+                chatMessages.append(senderNick + ": " + message);
             }
 
         } catch (UnknownHostException e){
@@ -249,7 +261,7 @@ public class ChatActivity extends AppCompatActivity{
            return allLanguageList;
         } else {
             //wczytywanie tablicy zadeklarowanych w log activity języków, jesli nie host
-            boolean[] avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
+            avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
             int counter = 0;
             assert avaliableLanguages != null;
             for (boolean avaliableLanguage : avaliableLanguages) {
