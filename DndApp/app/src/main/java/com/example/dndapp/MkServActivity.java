@@ -32,7 +32,9 @@ public class MkServActivity extends AppCompatActivity {
         String nick = editText.getText().toString();
         editText = (EditText)findViewById(R.id.portETxt);
         String port = editText.getText().toString();
+        
         //TODO: pobieranie IP servera (opcjonalnie jako osoobna funckja String, być może w klasie Network)
+
         WifiManager wm = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         assert wm != null;
         String servIP = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
