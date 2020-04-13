@@ -7,12 +7,13 @@
     tools:context=".LogActivity">
 
     <EditText
-        android:id="@+id/hostIPText"
+        android:id="@+id/hostIPETxt"
         android:layout_width="208dp"
         android:layout_height="46dp"
         android:gravity="center_horizontal"
         android:hint="@string/enter_host_ip"
         android:inputType="textPersonName"
+        android:text="10.0.0.16"
         app:layout_constraintBottom_toTopOf="@+id/goInBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +21,7 @@
         app:layout_constraintVertical_bias="0.457" />
 
     <EditText
-        android:id="@+id/nickTxt"
+        android:id="@+id/nickETxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -35,13 +36,14 @@
         app:layout_constraintVertical_bias="0.635" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/portETxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="center_horizontal"
         android:hint="@string/enter_port"
         android:inputType="textPersonName"
+        android:text="44100"
         app:layout_constraintBottom_toTopOf="@+id/goInBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -61,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nickTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/nickETxt" />
 
     <TextView
         android:id="@+id/logInfoTxt"
@@ -69,7 +71,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/logInfo"
-        app:layout_constraintBottom_toTopOf="@+id/hostIPText"
+        app:layout_constraintBottom_toTopOf="@+id/hostIPETxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
