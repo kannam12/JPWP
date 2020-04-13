@@ -22,13 +22,17 @@ import java.net.UnknownHostException;
 
 public class ChatActivity extends AppCompatActivity{
 
+    String nick;
+    int selectedLanguageID;
+
+
+
     //String[] messagesList;
     private EditText editMessage;
     private TextView chatMessages;
     private boolean loop = true;
     //final Handler handler1 = new Handler();
     public static int port = 44100;
-    int selectedLanguageID;
 
     public Socket socket;
     public PrintWriter out;
@@ -60,8 +64,6 @@ public class ChatActivity extends AppCompatActivity{
         });
         thread.start();
     }
-
-
 /////////////////////////////////////////////////////////
     //Metody klienta
     public void cliListenSocket () {
@@ -94,8 +96,8 @@ public class ChatActivity extends AppCompatActivity{
 
                     } else {
                         String chatMessage = editMessage.getText().toString();
-
-                        chatMessage = "MSG " + selectedLanguageID + " " + chatMessage;
+                        // WYSYŁANIE WIADOMOŚCI W FORMACIE: MSG 2 Krasnoludzki NickFury Siema kto PL?
+                        chatMessage = "MSG " + selectedLanguageID + " " + nick + " " + chatMessage;
 
                         out.println(chatMessage);
                         editMessage.setText("");
@@ -265,9 +267,10 @@ public class ChatActivity extends AppCompatActivity{
         return isHost;
 
     }
+
     public void infoNick(){
         //pobieranie info o nicku z log/serv activity
-        String nick = getIntent().getStringExtra("nick");
+        nick = getIntent().getStringExtra("nick");
         TextView textView = findViewById(R.id.nickInfoTxt2);
         textView.setText(nick);
     }
