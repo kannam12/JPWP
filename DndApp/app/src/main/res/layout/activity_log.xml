@@ -13,7 +13,7 @@
         android:gravity="center_horizontal"
         android:hint="@string/enter_host_ip"
         android:inputType="textPersonName"
-        android:text="10.0.0.16"
+        android:text="10.0.2.16"
         app:layout_constraintBottom_toTopOf="@+id/goInBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

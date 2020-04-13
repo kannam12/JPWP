@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity{
 
@@ -27,7 +28,6 @@ public class ChatActivity extends AppCompatActivity{
     String serverIP;
     int selectedLanguageID;
 
-    //String[] messagesList;
     private EditText editMessage;
     private TextView chatMessages;
     private boolean loop = true;
@@ -43,6 +43,8 @@ public class ChatActivity extends AppCompatActivity{
         setContentView(R.layout.activity_chat);
     ////////////////////////////////////////////
         extraInfo();
+        Toast toast = Toast.makeText(ChatActivity.this, serverIP, Toast.LENGTH_SHORT);
+        toast.show();
         addSpinner(mkPersonalLanguageList());
     ///////////////////////////
         //ImageButton sendButton = findViewById(R.id.sendBtn);
@@ -66,7 +68,6 @@ public class ChatActivity extends AppCompatActivity{
     public void cliListenSocket () {
         try {
             socket = new Socket (serverIP, port);
-
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while(loop){
@@ -74,12 +75,8 @@ public class ChatActivity extends AppCompatActivity{
                 chatMessages.append(line);
             }
 
-        } catch (UnknownHostException e){
-            //Log.d("tag", e.getMessage());
-            Log.d("tag", "mesydz");
         } catch (IOException e){
-            //Log.d("tag", e.getMessage());
-            Log.d("tag", "mesydz");
+            Log.d("tag", Objects.requireNonNull(e.getMessage()));
         }
     }
     public void onClick (View view) {
