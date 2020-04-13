@@ -25,15 +25,12 @@ public class ChatActivity extends AppCompatActivity{
     String nick;
     int port;
     String serverIP;
-
     int selectedLanguageID;
 
     //String[] messagesList;
     private EditText editMessage;
     private TextView chatMessages;
     private boolean loop = true;
-    //final Handler handler1 = new Handler();
-    //public static int port = 44100;
 
     public Socket socket;
     public PrintWriter out;
@@ -68,7 +65,7 @@ public class ChatActivity extends AppCompatActivity{
     //Metody klienta
     public void cliListenSocket () {
         try {
-            socket = new Socket ("10.0.2.16", port);
+            socket = new Socket (serverIP, port);
 
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

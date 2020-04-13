@@ -3,9 +3,21 @@ package com.example.dndapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.view.View;
 import android.widget.EditText;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.URL;
+import java.net.UnknownHostException;
+import java.util.Enumeration;
 
 public class MkServActivity extends AppCompatActivity {
 
@@ -15,13 +27,15 @@ public class MkServActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mk_serv);
     }
 
-    public void goNextServ(View view) {
+    public void goNextServ(View view) throws IOException {
         EditText editText = (EditText)findViewById(R.id.nickETxt);
         String nick = editText.getText().toString();
         editText = (EditText)findViewById(R.id.portETxt);
         String port = editText.getText().toString();
         //TODO: pobieranie IP servera (opcjonalnie jako osoobna funckja String, być może w klasie Network)
-        String servIP = "10.0.0.16";
+        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        assert wm != null;
+        String servIP = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
 
         Intent intent;
         switch(view.getId()) {
