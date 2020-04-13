@@ -73,27 +73,20 @@ public class ChatActivity extends AppCompatActivity{
     //Metody klienta
     public void cliListenSocket () {
         try {
-            socket = new Socket ("10.0.2.2", local_port);
-            Toast toast = Toast.makeText(this, "poprawne połączenie", Toast.LENGTH_SHORT);
-            toast.show();
+            socket = new Socket ("10.0.2.16", port);
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while(loop){
                 String line = in.readLine();
-                String s = chatMessages.getText().toString();
-                chatMessages.setText(s + "\n" + line);
+                chatMessages.append(line);
             }
 
         } catch (UnknownHostException e){
             //Log.d("tag", e.getMessage());
             Log.d("tag", "mesydz");
-            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
-            toast.show();
         } catch (IOException e){
             //Log.d("tag", e.getMessage());
             Log.d("tag", "mesydz");
-            Toast toast2 = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
-            toast2.show();
         }
     }
     public void onClick (View view) {
@@ -118,18 +111,20 @@ public class ChatActivity extends AppCompatActivity{
     //Metody serwera
     public void servListenSocket () {
         try {
-            server = new ServerSocket(serv_port);
-            socket = server.accept();
-            Toast toast = Toast.makeText(this, "poprawne połączenie", Toast.LENGTH_SHORT);
-            toast.show();
+            server = new ServerSocket(port);
         } catch (IOException e) {
             Log.d("tag", e.getMessage());
-            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
-            toast.show();
         }
-        //while (true){
-
-        //}
+        while (true) {
+            CliWork w;
+            try {
+                w = new CliWork(server.accept(), chatMessages);
+                Thread t = new Thread(w);
+                t.start();
+            } catch (IOException e) {
+                Log.d("tag", e.getMessage());
+            }
+        }
     }
 
 //////////////////////////////////////////////////
