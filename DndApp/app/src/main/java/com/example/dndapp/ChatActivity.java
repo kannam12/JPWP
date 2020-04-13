@@ -27,6 +27,7 @@ public class ChatActivity extends AppCompatActivity{
     int port;
     String serverIP;
     int selectedLanguageID;
+    boolean[] avaliableLanguages;
 
     private EditText editMessage;
     private TextView chatMessages;
@@ -72,7 +73,26 @@ public class ChatActivity extends AppCompatActivity{
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while(loop){
                 String line = in.readLine();
-                chatMessages.append(line);
+                /////tu obróbka przychodzącej wiadomości w formacie: MSG 1 Ja EloKoledzy! - w przyszłości funckaj
+
+                String[] tmp = line.split(" ",4);
+                String statement = tmp[0];      //MSG
+                String receivedLanguageID = tmp[1];
+                String senderNick = tmp[2];
+                String message = tmp[3];
+
+                int counter = 0;
+                avaliableLanguages = getAvaliableLanguages();
+                for (int i = 0; i < avaliableLanguages.length; i++){
+                     if (Integer.parseInt(receivedLanguageID) == i) {
+                         counter = 1;
+                    }
+                 }
+                if (counter == 0){
+                    message = "!@#$%^&*()_+{}|:";
+                }
+                //////////////////////
+                chatMessages.append(senderNick + ": " + message);
             }
 
         } catch (IOException e){
@@ -224,6 +244,9 @@ public class ChatActivity extends AppCompatActivity{
         });
     }
 */
+    public boolean[] getAvaliableLanguages(){
+        return getIntent().getBooleanArrayExtra("avaliableLanguages");
+    }
 
     public String[] mkPersonalLanguageList(){
 
@@ -235,7 +258,7 @@ public class ChatActivity extends AppCompatActivity{
            return allLanguageList;
         } else {
             //wczytywanie tablicy zadeklarowanych w log activity języków, jesli nie host
-            boolean[] avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
+            avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
             int counter = 0;
             assert avaliableLanguages != null;
             for (boolean avaliableLanguage : avaliableLanguages) {
