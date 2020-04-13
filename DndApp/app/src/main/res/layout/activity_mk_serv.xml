@@ -20,12 +20,13 @@
         app:layout_constraintVertical_bias="0.778" />
 
     <EditText
-        android:id="@+id/nickText"
+        android:id="@+id/nickETxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/enter_nick"
         android:inputType="textPersonName"
+        android:text="GameMaster"
         app:layout_constraintBottom_toTopOf="@+id/goInServBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -33,12 +34,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/portETxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/enter_port"
         android:inputType="number"
+        android:text="44100"
         app:layout_constraintBottom_toTopOf="@+id/goInServBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +53,7 @@
         android:layout_height="53dp"
         android:gravity="center_horizontal"
         android:text="@string/mkServInfo"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/portETxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
