@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">DndApp</string>
-    <string name="lan0">Kanoniczny</string>
-    <string name="lan1">Elficki</string>
-    <string name="lan2">Krasnoludzki</string>
-    <string name="lan3">Druidzki</string>
-    <string name="lan4">Smoczy</string>
-    <string name="lan5">Niebiański</string>
-    <string name="lan6">Piekielny</string>
+    <string name="lan1">Kanoniczny</string>
+    <string name="lan2">Elficki</string>
+    <string name="lan3">Krasnoludzki</string>
+    <string name="lan4">Druidzki</string>
+    <string name="lan5">Smoczy</string>
+    <string name="lan6">Niebiański</string>
+    <string name="lan7">Piekielny</string>
 
     <string name="mainInfo">Hello Adventurer!</string>
     <string name="mkServInfo">Aby połączyć się jako serwer wpisz numer portu oraz swój nick:</string>
@@ -31,13 +31,13 @@
 
     // tu mamy zawartość naszego spinnera z językami w ChatActivity
     <string-array name="languages_array">
-        <item>0@Kanoniczny</item>
-        <item>1@Elficki</item>
-        <item>2@Krasnoludzki</item>
-        <item>3@Druidzki</item>
-        <item>4@Smoczy</item>
-        <item>5@Niebiański</item>
-        <item>6@Piekielny</item>
+        <item>Kanoniczny</item>
+        <item>Elficki</item>
+        <item>Krasnoludzki</item>
+        <item>Druidzki</item>
+        <item>Smoczy</item>
+        <item>Niebiański</item>
+        <item>Piekielny</item>
     </string-array>
 
 </resources>

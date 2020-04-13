@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,17 +20,15 @@ import java.net.UnknownHostException;
 
 public class ChatActivity extends AppCompatActivity{
 
-    String nick;
-    int selectedLanguageID;
-
-
-
     //String[] messagesList;
     private EditText editMessage;
     private TextView chatMessages;
     private boolean loop = true;
     //final Handler handler1 = new Handler();
     public static int port = 44100;
+    int local_port = 4444;      //tu były próbowane rediry
+    int serv_port = 4400;
+
 
     public Socket socket;
     public PrintWriter out;
@@ -43,10 +39,9 @@ public class ChatActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-    ////////////////////////////////////////////
+        ////////////////////////////////////////////
         infoNick();
         addSpinner(mkPersonalLanguageList());
-    ///////////////////////////
         //ImageButton sendButton = findViewById(R.id.sendBtn);
         editMessage = (EditText) findViewById(R.id.chatETxt);
         chatMessages = (TextView) findViewById(R.id.replyFromServer);
@@ -64,13 +59,13 @@ public class ChatActivity extends AppCompatActivity{
         });
         thread.start();
     }
-/////////////////////////////////////////////////////////
+
+
+    /////////////////////////////////////////////////////////
     //Metody klienta
     public void cliListenSocket () {
         try {
-
             socket = new Socket ("10.0.2.16", port);
-
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while(loop){
@@ -92,22 +87,18 @@ public class ChatActivity extends AppCompatActivity{
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                    if (isHost()) {
-
-                    } else {
-                        String chatMessage = editMessage.getText().toString();
-                        // WYSYŁANIE WIADOMOŚCI W FORMACIE: MSG 2 Krasnoludzki NickFury Siema kto PL?
-                        chatMessage = "MSG " + selectedLanguageID + " " + nick + " " + chatMessage;
-
-                        out.println(chatMessage);
-                        editMessage.setText("");
-                    }}
+                        if (isHost()) {
+                        } else {
+                            String text = editMessage.getText().toString();
+                            out.println(text);
+                            editMessage.setText("");
+                        }}
                 });
                 thread.start();
                 break;
         }
     }
-//////////////////////////////////////////////
+    //////////////////////////////////////////////
     //Metody serwera
     public void servListenSocket () {
         try {
@@ -239,7 +230,7 @@ public class ChatActivity extends AppCompatActivity{
 
         //czy to host? jeśli tak to ma dostępne wszytskie języki, bo jest GM-em
         if (getIntent().getBooleanExtra("is_host", false)) {
-           return allLanguageList;
+            return allLanguageList;
         } else {
             //wczytywanie tablicy zadeklarowanych w log activity języków, jesli nie host
             boolean[] avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
@@ -267,47 +258,20 @@ public class ChatActivity extends AppCompatActivity{
         return isHost;
 
     }
-
     public void infoNick(){
         //pobieranie info o nicku z log/serv activity
-        nick = getIntent().getStringExtra("nick");
+        String nick = getIntent().getStringExtra("nick");
         TextView textView = findViewById(R.id.nickInfoTxt2);
         textView.setText(nick);
     }
-    public void addSpinner(final String[] finalLanguageList) {
+    public void addSpinner(String[] finalLanguageList) {
         //wiadomo
         //TODO: pytanie: czemu dwie linijki niżej jest na żółto?
-        //FIXME: naprawiodend, a temu: "That's because ArrayAdapter expects you to specify which type of object it will manipulate."
-
+        //FIXME: a temu: "That's because ArrayAdapter expects you to specify which type of object it will manipulate."
+        // naprawiłam:
         Spinner spinner = findViewById(R.id.spinner_jezyki);
-
-    ////////Dzielenie na ID języka i jego nazwę/////////
-        final int[] finalLanguageID = new int[finalLanguageList.length];
-        final String[] finalLanguageShow = new String[finalLanguageList.length];
-
-        for (int i = 0; i < finalLanguageList.length; i++){
-            String[] tmp = finalLanguageList[i].split("@", 2);
-            finalLanguageID[i] = Integer.parseInt(tmp[0]);
-            finalLanguageShow[i] = tmp[1];
-        }
-    //////////////////////////////////////////////////
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, finalLanguageShow);
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,finalLanguageList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int choiceID, long position) {
-                selectedLanguageID = finalLanguageID[(int)position];
-                Toast.makeText(ChatActivity.this, "Wybrałeś język: " + (finalLanguageShow[choiceID]) +", zapisano ID: " + selectedLanguageID, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                selectedLanguageID = finalLanguageID[0];
-            }
-        });
     }
 }
