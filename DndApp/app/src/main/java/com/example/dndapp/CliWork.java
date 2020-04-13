@@ -12,6 +12,8 @@ import java.net.Socket;
 public class CliWork implements Runnable{
     private Socket client;
     private TextView textArea;
+
+    public ChatActivity chatActivity;
     CliWork (Socket client, TextView textArea) {
         this.client = client;
         this.textArea = textArea;

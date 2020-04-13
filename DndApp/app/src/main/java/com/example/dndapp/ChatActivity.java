@@ -71,7 +71,15 @@ public class ChatActivity extends AppCompatActivity{
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while(loop){
                 String line = in.readLine();
-                chatMessages.append(line);
+                /////tu obróbka przychodzącej wiadomości w formacie: MSG 1 Ja EloKoledzy! - w przyszłości funckaj
+
+                String[] tmp = line.split(" ",4);
+                String statement = tmp[0];      //MSG
+                String languageID = tmp[1];
+                String senderNick = tmp[2];
+                String message = tmp[3];
+
+                chatMessages.append(nick + ": " + message);
             }
 
         } catch (UnknownHostException e){
@@ -227,6 +235,9 @@ public class ChatActivity extends AppCompatActivity{
         });
     }
 */
+    public boolean[] getAvaliableLanguages(){
+        return getIntent().getBooleanArrayExtra("avaliableLanguages");
+    }
 
     public String[] mkPersonalLanguageList(){
 
