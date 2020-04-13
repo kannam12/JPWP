@@ -281,6 +281,8 @@ public class ChatActivity extends AppCompatActivity{
     public void addSpinner(String[] finalLanguageList) {
         //wiadomo
         //TODO: pytanie: czemu dwie linijki niżej jest na żółto?
+        //FIXME: a temu: "That's because ArrayAdapter expects you to specify which type of object it will manipulate."
+        // naprawiłam:
         Spinner spinner = findViewById(R.id.spinner_jezyki);
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,finalLanguageList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
