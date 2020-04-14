@@ -19,6 +19,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity{
@@ -37,6 +39,9 @@ public class ChatActivity extends AppCompatActivity{
     public PrintWriter out;
     public BufferedReader in;
     public ServerSocket server;
+
+    public List<CliWork> listOfClients = new ArrayList<>();
+    private static List<PrintWriter> listOfCliOuts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,22 +107,26 @@ public class ChatActivity extends AppCompatActivity{
     public void onClick (View view) {
         switch (view.getId()){
             case R.id.sendBtn:
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                    if (isHost()) {
-
-                    } else {
-                        String chatMessage = editMessage.getText().toString();
-                        // WYSYŁANIE WIADOMOŚCI W FORMACIE: MSG 2 Krasnoludzki NickFury Siema kto PL?
-                        chatMessage = "MSG " + selectedLanguageID + " " + nick + " " + chatMessage;
-
-                        out.println(chatMessage);
-                        editMessage.setText("");
-                    }}
-                });
-                thread.start();
-                break;
+                if (isHost()) {
+                    for (int i = 0; i < listOfClients.size(); i++) {
+                        listOfClients.get(i).setKlienci(listOfCliOuts);
+                        Thread thread1 = new Thread(listOfClients.get(i));
+                        thread1.start();
+                    }
+                } else {
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String chatMessage = editMessage.getText().toString();
+                                // WYSYŁANIE WIADOMOŚCI W FORMACIE: MSG 2 Krasnoludzki NickFury Siema kto PL?
+                            chatMessage = "MSG " + selectedLanguageID + " " + nick + " " + chatMessage;
+                            out.println(chatMessage);
+                            editMessage.setText("");
+                            }
+                        });
+                        thread.start();
+                 }
+             break;
         }
     }
 //////////////////////////////////////////////
@@ -132,8 +141,10 @@ public class ChatActivity extends AppCompatActivity{
             CliWork w;
             try {
                 w = new CliWork(server.accept(), chatMessages);
-                Thread t = new Thread(w);
-                t.start();
+                listOfClients.add(w);
+                listOfCliOuts.add(w.getOut());
+                //Thread t = new Thread(w);
+                //t.start();
             } catch (IOException e) {
                 Log.d("tag", e.getMessage());
             }
@@ -141,109 +152,6 @@ public class ChatActivity extends AppCompatActivity{
     }
 
 //////////////////////////////////////////////////
-/*
-    public void onClick (View view) {
-        switch (view.getId()) {
-            case R.id.sendBtn:
-                if (isHost()) {
-                    startServerSocket();
-
-                } else {
-                    sendMessage(editMessage.getText().toString());
-                }
-                break;
-        }
-    }
-
-    private void sendMessage (final String message) {
-        final Handler handler = new Handler();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Socket s = new Socket("10.0.2.16", port);
-                    OutputStream out = s.getOutputStream();
-                    PrintWriter output = new PrintWriter(out);
-                    output.println(message);
-                    output.flush();
-                    BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                    final String str = input.readLine();
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run () {
-                            String s = chatMessages.getText().toString();
-                            if(str.trim().length() != 0) {
-                                chatMessages.setText(s + "\nSerwer: " + str);
-                            }
-                        }
-
-                    });
-
-                }catch (IOException e) {
-                    String s = chatMessages.getText().toString();
-                    chatMessages.setText(s + "Client failed");
-                }
-            }
-        });
-        thread.start();
-    }
-
-
-    private void startServerSocket () {
-        Thread thread = new Thread(new Runnable() {
-            private String stringDataTemp = null;
-            @Override
-            public void run() {
-                try {
-                    ServerSocket sS = new ServerSocket(port);
-                    chatMessages.setText("Fail 1");
-
-                    Socket s = sS.accept();
-                    BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                    PrintWriter output = new PrintWriter(s.getOutputStream());
-                    while (loop) {
-
-
-                        stringDataTemp = input.readLine();
-                        output.println("Response: " + stringDataTemp);
-                        output.flush();
-
-                        Thread.sleep(1000);
-
-                        updateUI(stringDataTemp);
-                        if (stringDataTemp.equalsIgnoreCase("STOP")) {
-                            loop = false;
-                            output.close();
-                            s.close();
-                            break;
-                        }
-
-                    }
-                    output.close();
-                    s.close();
-                    sS.close();
-                } catch (Exception e) {
-                    chatMessages.setText(e.toString());
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
-    }
-
-
-    private void updateUI (final String stringDataTemp) {
-        handler1.post(new Runnable() {
-            @Override
-            public void run() {
-                String s = chatMessages.getText().toString();
-                if (stringDataTemp.trim().length() != 0) {
-                    chatMessages.setText(s + "\nGlient:" + stringDataTemp);
-                }
-            }
-        });
-    }
-*/
     public boolean[] getAvaliableLanguages(){
         return getIntent().getBooleanArrayExtra("avaliableLanguages");
     }
