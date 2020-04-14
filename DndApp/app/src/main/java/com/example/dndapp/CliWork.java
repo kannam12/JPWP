@@ -43,6 +43,7 @@ public class CliWork implements Runnable {
         while (true) {
             try {
                 line = in.readLine();
+                klienci = ChatActivity.getListOfCliOuts();
                 for (int i = 0; i < klienci.size(); i++) {
                     klienci.get(i).println(line);
                 }
