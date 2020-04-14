@@ -37,7 +37,6 @@ public class CliWork implements Runnable {
 
         try {
             in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            out = new PrintWriter(client.getOutputStream(), true);
         } catch (IOException e) {
             Log.d("tag", e.getMessage());
         }
@@ -48,7 +47,6 @@ public class CliWork implements Runnable {
                 for (int i = 0; i < klienci.size(); i++) {
                     klienci.get(i).println(line);
                 }
-                out.println(line);
                 textArea.append(line);
             } catch (IOException e) {
                 Log.d("tag", e.getMessage());

@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -107,11 +108,11 @@ public class ChatActivity extends AppCompatActivity{
         switch (view.getId()){
             case R.id.sendBtn:
                 if (isHost()) {
-                    for (int i = 0; i < listOfClients.size(); i++) {
-                        listOfClients.get(i).setKlienci(listOfCliOuts);
-                        Thread thread1 = new Thread(listOfClients.get(i));
-                        thread1.start();
-                    }
+                    //for (int i = 0; i < listOfClients.size(); i++) {
+                        //listOfClients.get(i).setKlienci(listOfCliOuts);
+                    //    Thread thread1 = new Thread(listOfClients.get(i));
+                    //   thread1.start();
+                    //}
                 } else {
                     Thread thread = new Thread(new Runnable() {
                         @Override
@@ -142,8 +143,8 @@ public class ChatActivity extends AppCompatActivity{
                 w = new CliWork(server.accept(), chatMessages);
                 listOfClients.add(w);
                 listOfCliOuts.add(w.getOut());
-                //Thread t = new Thread(w);
-                //t.start();
+                Thread t = new Thread(w);
+                t.start();
             } catch (IOException e) {
                 Log.d("tag", e.getMessage());
             }
