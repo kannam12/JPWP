@@ -1,4 +1,4 @@
-package com.example.dndapp;
+package com.example.dndapptest4;
 
 import android.util.Log;
 import android.widget.TextView;
