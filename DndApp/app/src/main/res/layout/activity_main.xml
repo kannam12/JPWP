@@ -11,10 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="34dp"
+        android:layout_marginTop="21dp"
         android:onClick="goNextMain"
         android:text="@string/mainBtn2info"
         app:layout_constraintStart_toStartOf="@+id/serverBtn"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/serverBtn" />
 
     <ImageView
         android:id="@+id/imageView2"

@@ -146,7 +146,7 @@ public class ChatActivity extends AppCompatActivity{
         while (true) {
             CliWork work;
             try {
-                work = new CliWork(server.accept(), chatMessages);
+                work = new CliWork(server.accept(), chatMessages, this);
                 listOfClients.add(work);
                 listOfCliOuts.add(work.getOut());
                 Thread t = new Thread(work);
