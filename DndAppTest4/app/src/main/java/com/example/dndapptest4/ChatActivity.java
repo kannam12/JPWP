@@ -101,7 +101,7 @@ public class ChatActivity extends AppCompatActivity{
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        chatMessages.append(senderNick + ": " + message);
+                        chatMessages.append("\n" + senderNick + ": " + message);
                     }
                 });
             }
