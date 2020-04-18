@@ -122,7 +122,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:maxLines="20"
                 android:text="\n\n Napisz coś!" />
             <!-- android:textColor="#4f4f4f"
                 android:textSize="25sp"
