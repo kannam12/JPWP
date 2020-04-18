@@ -77,13 +77,13 @@ public class ChatActivity extends AppCompatActivity{
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while(loop){
-                String line = in.readLine();
+                final String line = in.readLine();
                 /////tu obróbka przychodzącej wiadomości w formacie: MSG 1 Ja EloKoledzy! - w przyszłości funckaj
 
                 String[] tmp = line.split(" ",4);
                 String statement = tmp[0];      //MSG
                 String receivedLanguageID = tmp[1];
-                String senderNick = tmp[2];
+                final String senderNick = tmp[2];
                 String message = tmp[3];
 
                 int counter = 0;
@@ -97,7 +97,13 @@ public class ChatActivity extends AppCompatActivity{
                     message = "!@#$%^&*()_+{}|:";
                 }
                 //////////////////////
-                chatMessages.append(senderNick + ": " + message);
+                final String finalMessage = message;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        chatMessages.append(senderNick + ": " + finalMessage);
+                    }
+                });
             }
 
         } catch (IOException e){
