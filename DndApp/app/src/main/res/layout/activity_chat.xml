@@ -92,8 +92,10 @@
         android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/spinner_jezyki"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/portInfoTxt1">
+        app:layout_constraintTop_toBottomOf="@+id/portInfoTxt1"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:id="@+id/tips"
