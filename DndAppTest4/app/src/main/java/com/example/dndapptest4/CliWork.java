@@ -15,7 +15,7 @@ public class CliWork implements Runnable {
     private Socket client;
     private TextView textArea;
     private PrintWriter out = null;
-    public ChatActivity chatActivity;
+    public com.example.dndapptest4.ChatActivity chatActivity;
     public static List<PrintWriter> klienci = new ArrayList<>();
 
 
@@ -32,7 +32,7 @@ public class CliWork implements Runnable {
 
     @Override
     public void run() {
-        String line;
+        String receivedFromClientLine;
         BufferedReader in = null;
 
         try {
@@ -42,17 +42,21 @@ public class CliWork implements Runnable {
         }
         while (true) {
             try {
-                line = in.readLine();
-                klienci = ChatActivity.getListOfCliOuts();
+                receivedFromClientLine = in.readLine();
+                klienci = com.example.dndapptest4.ChatActivity.getListOfCliOuts();
                 for (int i = 0; i < klienci.size(); i++) {
-                    klienci.get(i).println(line);
+                    klienci.get(i).println(receivedFromClientLine);
                 }
-                textArea.append(line);
+                /*final String finalReceivedFromClientLine = receivedFromClientLine;
+                chatActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textArea.append(finalReceivedFromClientLine);
+                    }
+                });*/
             } catch (IOException e) {
                 Log.d("tag", e.getMessage());
             }
-
         }
-
     }
 }

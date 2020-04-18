@@ -32,7 +32,7 @@ public class CliWork implements Runnable {
 
     @Override
     public void run() {
-        String line;
+        String receivedFromClientLine;
         BufferedReader in = null;
 
         try {
@@ -42,17 +42,21 @@ public class CliWork implements Runnable {
         }
         while (true) {
             try {
-                line = in.readLine();
+                receivedFromClientLine = in.readLine();
                 klienci = ChatActivity.getListOfCliOuts();
                 for (int i = 0; i < klienci.size(); i++) {
-                    klienci.get(i).println(line);
+                    klienci.get(i).println(receivedFromClientLine);
                 }
-                textArea.append(line);
+                /*final String finalReceivedFromClientLine = receivedFromClientLine;
+                chatActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textArea.append(finalReceivedFromClientLine);
+                    }
+                });*/
             } catch (IOException e) {
                 Log.d("tag", e.getMessage());
             }
-
         }
-
     }
 }

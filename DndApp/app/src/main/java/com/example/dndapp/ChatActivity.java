@@ -18,7 +18,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -54,16 +53,16 @@ public class ChatActivity extends AppCompatActivity{
         addSpinner(mkPersonalLanguageList());
     ///////////////////////////
         //ImageButton sendButton = findViewById(R.id.sendBtn);
-        editMessage = (EditText) findViewById(R.id.chatETxt);
-        chatMessages = (TextView) findViewById(R.id.replyFromServer);
+        editMessage = findViewById(R.id.chatETxt);
+        chatMessages = findViewById(R.id.replyFromServer);
 
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 if (isHost()) {
-                    servListenSocket();
+                    serverListeningSocket();
                 } else {
-                    cliListenSocket();
+                    clientListeningSocket();
                 }
             }
         });
@@ -71,20 +70,20 @@ public class ChatActivity extends AppCompatActivity{
     }
 /////////////////////////////////////////////////////////
     //Metody klienta
-    public void cliListenSocket () {
+    public void clientListeningSocket() {
         try {
             socket = new Socket (serverIP, port);
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while(loop){
-                String line = in.readLine();
-                /////tu obróbka przychodzącej wiadomości w formacie: MSG 1 Ja EloKoledzy! - w przyszłości funckaj
+                final String incomingLine = in.readLine();
+                /////tu obróbka przychodzącej wiadomości w formacie: MSG 1 Ja EloKoledzy! - w przyszłości funckcja dla uładnienia
 
-                String[] tmp = line.split(" ",4);
-                String statement = tmp[0];      //MSG
-                String receivedLanguageID = tmp[1];
-                String senderNick = tmp[2];
-                String message = tmp[3];
+                String[] tmp = incomingLine.split(" ",4);
+                //final String statement = tmp[0];      //MSG
+                final String receivedLanguageID = tmp[1];
+                final String senderNick = tmp[2];
+                String tmpMessage = tmp[3];
 
                 int counter = 0;
                 avaliableLanguages = getAvaliableLanguages();
@@ -94,16 +93,23 @@ public class ChatActivity extends AppCompatActivity{
                     }
                  }
                 if (counter == 0){
-                    message = "!@#$%^&*()_+{}|:";
+                    tmpMessage = "!@#$%^&*()_+{}|:";
                 }
+                final String message = tmpMessage;
                 //////////////////////
-                chatMessages.append(senderNick + ": " + message);
-            }
 
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        chatMessages.append("\n" + senderNick + ": " + message);
+                    }
+                });
+            }
         } catch (IOException e){
             Log.d("tag", Objects.requireNonNull(e.getMessage()));
         }
     }
+
     public void onClick (View view) {
         switch (view.getId()){
             case R.id.sendBtn:
@@ -117,10 +123,10 @@ public class ChatActivity extends AppCompatActivity{
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            String chatMessage = editMessage.getText().toString();
+                            String outgoingChatMessage = editMessage.getText().toString();
                                 // WYSYŁANIE WIADOMOŚCI W FORMACIE: MSG 2 Krasnoludzki NickFury Siema kto PL?
-                            chatMessage = "MSG " + selectedLanguageID + " " + nick + " " + chatMessage;
-                            out.println(chatMessage);
+                            outgoingChatMessage = "MSG " + selectedLanguageID + " " + nick + " " + outgoingChatMessage;
+                            out.println(outgoingChatMessage);
                             editMessage.setText("");
                             }
                         });
@@ -131,19 +137,19 @@ public class ChatActivity extends AppCompatActivity{
     }
 //////////////////////////////////////////////
     //Metody serwera
-    public void servListenSocket () {
+    public void serverListeningSocket() {
         try {
             server = new ServerSocket(port);
         } catch (IOException e) {
             Log.d("tag", e.getMessage());
         }
         while (true) {
-            CliWork w;
+            CliWork work;
             try {
-                w = new CliWork(server.accept(), chatMessages);
-                listOfClients.add(w);
-                listOfCliOuts.add(w.getOut());
-                Thread t = new Thread(w);
+                work = new CliWork(server.accept(), chatMessages);
+                listOfClients.add(work);
+                listOfCliOuts.add(work.getOut());
+                Thread t = new Thread(work);
                 t.start();
             } catch (IOException e) {
                 Log.d("tag", e.getMessage());
