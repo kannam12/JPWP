@@ -47,13 +47,13 @@ public class CliWork implements Runnable {
                 for (int i = 0; i < klienci.size(); i++) {
                     klienci.get(i).println(receivedFromClientLine);
                 }
-                final String finalLine = receivedFromClientLine;
+                /*final String finalReceivedFromClientLine = receivedFromClientLine;
                 chatActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textArea.append(finalLine);
+                        textArea.append(finalReceivedFromClientLine);
                     }
-                });
+                });*/
             } catch (IOException e) {
                 Log.d("tag", e.getMessage());
             }
