@@ -25,20 +25,16 @@ import java.util.Objects;
 public class ChatActivity extends AppCompatActivity{
 
     String nick;
-    int port;
     String serverIP;
+    int port;
     int selectedLanguageID;
     boolean[] avaliableLanguages;
-
     private EditText editMessage;
     private TextView chatMessages;
-    private boolean loop = true;
-
     public Socket socket;
     public PrintWriter out;
     public BufferedReader in;
     public ServerSocket server;
-
     public List<CliWork> listOfClients = new ArrayList<>();
     private static List<PrintWriter> listOfCliOuts = new ArrayList<>();
 
@@ -46,13 +42,8 @@ public class ChatActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-    ////////////////////////////////////////////
         extraInfo();
-        Toast toast = Toast.makeText(ChatActivity.this, serverIP, Toast.LENGTH_SHORT);
-        toast.show();
         addSpinner(mkPersonalLanguageList());
-    ///////////////////////////
-        //ImageButton sendButton = findViewById(R.id.sendBtn);
         editMessage = findViewById(R.id.chatETxt);
         chatMessages = findViewById(R.id.replyFromServer);
 
@@ -68,40 +59,21 @@ public class ChatActivity extends AppCompatActivity{
         });
         thread.start();
     }
-/////////////////////////////////////////////////////////
+
     //Metody klienta
     public void clientListeningSocket() {
         try {
             socket = new Socket (serverIP, port);
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            boolean loop = true;
             while(loop){
                 final String incomingLine = in.readLine();
-                /////tu obróbka przychodzącej wiadomości w formacie: MSG 1 Ja EloKoledzy! - w przyszłości funckcja dla uładnienia
-
-                String[] tmp = incomingLine.split(" ",4);
-                //final String statement = tmp[0];      //MSG
-                final String receivedLanguageID = tmp[1];
-                final String senderNick = tmp[2];
-                String tmpMessage = tmp[3];
-
-                int counter = 0;
-                avaliableLanguages = getAvaliableLanguages();
-                for (int i = 0; i < avaliableLanguages.length; i++){
-                     if (Integer.parseInt(receivedLanguageID) == i && avaliableLanguages[i]) {
-                         counter = 1;
-                    }
-                 }
-                if (counter == 0){
-                    tmpMessage = "!@#$%^&*()_+{}|:";
-                }
-                final String message = tmpMessage;
-                //////////////////////
-
+                final String message = protocol(incomingLine);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        chatMessages.append("\n" + senderNick + ": " + message);
+                        chatMessages.append("\n" + getNick(incomingLine) + ": " + message);
                     }
                 });
             }
@@ -110,21 +82,15 @@ public class ChatActivity extends AppCompatActivity{
         }
     }
 
+
     public void onClick (View view) {
         switch (view.getId()){
             case R.id.sendBtn:
-                if (isHost()) {
-                    //for (int i = 0; i < listOfClients.size(); i++) {
-                        //listOfClients.get(i).setKlienci(listOfCliOuts);
-                    //    Thread thread1 = new Thread(listOfClients.get(i));
-                    //   thread1.start();
-                    //}
-                } else {
+                if (!isHost()) {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             String outgoingChatMessage = editMessage.getText().toString();
-                                // WYSYŁANIE WIADOMOŚCI W FORMACIE: MSG 2 Krasnoludzki NickFury Siema kto PL?
                             outgoingChatMessage = "MSG " + selectedLanguageID + " " + nick + " " + outgoingChatMessage;
                             out.println(outgoingChatMessage);
                             editMessage.setText("");
@@ -135,7 +101,7 @@ public class ChatActivity extends AppCompatActivity{
              break;
         }
     }
-//////////////////////////////////////////////
+
     //Metody serwera
     public void serverListeningSocket() {
         try {
@@ -157,7 +123,30 @@ public class ChatActivity extends AppCompatActivity{
         }
     }
 
-//////////////////////////////////////////////////
+    public String protocol (String incomingLine) {
+        String[] tmp = incomingLine.split(" ",4);
+        //final String statement = tmp[0];      //MSG
+        final String receivedLanguageID = tmp[1];
+        final String senderNick = tmp[2];
+        String tmpMessage = tmp[3];
+
+        int counter = 0;
+        avaliableLanguages = getAvaliableLanguages();
+        for (int i = 0; i < avaliableLanguages.length; i++){
+            if (Integer.parseInt(receivedLanguageID) == i && avaliableLanguages[i]) {
+                counter = 1;
+            }
+        }
+        if (counter == 0){
+            tmpMessage = "!@#$%^&*()_+{}|:";
+        }
+        return tmpMessage;
+    }
+    public String getNick (String incomingLine) {
+        String[] tmp = incomingLine.split(" ",4);
+        final String senderNick = tmp[2];
+        return senderNick;
+    }
 
     public static List<PrintWriter> getListOfCliOuts() {
         return  listOfCliOuts;
@@ -235,7 +224,6 @@ public class ChatActivity extends AppCompatActivity{
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, finalLanguageShow);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

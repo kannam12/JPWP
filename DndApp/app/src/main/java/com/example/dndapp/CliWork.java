@@ -24,11 +24,9 @@ public class CliWork implements Runnable {
         this.textArea = textArea;
         this.chatActivity = chatActivity;
     }
+
     public PrintWriter getOut () throws IOException {
         return new PrintWriter(client.getOutputStream(), true);
-    }
-    public void setKlienci (List<PrintWriter> clients) {
-        klienci = clients;
     }
 
     @Override
@@ -52,7 +50,7 @@ public class CliWork implements Runnable {
                 chatActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textArea.append(finalReceivedFromClientLine);
+                        textArea.append("\n" + finalReceivedFromClientLine);
                     }
                 });
             } catch (IOException e) {
