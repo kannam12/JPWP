@@ -18,7 +18,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -47,69 +46,76 @@ public class ChatActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-    ////////////////////////////////////////////
+        ////////////////////////////////////////////
         extraInfo();
         Toast toast = Toast.makeText(ChatActivity.this, serverIP, Toast.LENGTH_SHORT);
         toast.show();
         addSpinner(mkPersonalLanguageList());
-    ///////////////////////////
+        ///////////////////////////
         //ImageButton sendButton = findViewById(R.id.sendBtn);
-        editMessage = (EditText) findViewById(R.id.chatETxt);
-        chatMessages = (TextView) findViewById(R.id.replyFromServer);
+        editMessage = findViewById(R.id.chatETxt);
+        chatMessages = findViewById(R.id.replyFromServer);
 
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 if (isHost()) {
-                    servListenSocket();
+                    serverListeningSocket();
                 } else {
-                    cliListenSocket();
+                    clientListeningSocket();
                 }
             }
         });
         thread.start();
     }
-/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////
     //Metody klienta
-    public void cliListenSocket () {
+    public void clientListeningSocket() {
         try {
             socket = new Socket (serverIP, port);
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while(loop){
-                String line = in.readLine();
-                /////tu obróbka przychodzącej wiadomości w formacie: MSG 1 Ja EloKoledzy! - w przyszłości funckaj
+                final String incomingLine = in.readLine();
+                /////tu obróbka przychodzącej wiadomości w formacie: MSG 1 Ja EloKoledzy! - w przyszłości funckcja dla uładnienia
 
-                String[] tmp = line.split(" ",4);
-                String statement = tmp[0];      //MSG
-                String receivedLanguageID = tmp[1];
-                String senderNick = tmp[2];
-                String message = tmp[3];
+                String[] tmp = incomingLine.split(" ",4);
+                //final String statement = tmp[0];      //MSG
+                final String receivedLanguageID = tmp[1];
+                final String senderNick = tmp[2];
+                String tmpMessage = tmp[3];
 
                 int counter = 0;
                 avaliableLanguages = getAvaliableLanguages();
                 for (int i = 0; i < avaliableLanguages.length; i++){
-                     if (Integer.parseInt(receivedLanguageID) == i && avaliableLanguages[i]) {
-                         counter = 1;
+                    if (Integer.parseInt(receivedLanguageID) == i && avaliableLanguages[i]) {
+                        counter = 1;
                     }
-                 }
-                if (counter == 0){
-                    message = "!@#$%^&*()_+{}|:";
                 }
+                if (counter == 0){
+                    tmpMessage = "!@#$%^&*()_+{}|:";
+                }
+                final String message = tmpMessage;
                 //////////////////////
-                chatMessages.append(senderNick + ": " + message);
-            }
 
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        chatMessages.append("\n" + senderNick + ": " + message);
+                    }
+                });
+            }
         } catch (IOException e){
             Log.d("tag", Objects.requireNonNull(e.getMessage()));
         }
     }
+
     public void onClick (View view) {
         switch (view.getId()){
             case R.id.sendBtn:
                 if (isHost()) {
                     //for (int i = 0; i < listOfClients.size(); i++) {
-                        //listOfClients.get(i).setKlienci(listOfCliOuts);
+                    //listOfClients.get(i).setKlienci(listOfCliOuts);
                     //    Thread thread1 = new Thread(listOfClients.get(i));
                     //   thread1.start();
                     //}
@@ -117,33 +123,33 @@ public class ChatActivity extends AppCompatActivity{
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            String chatMessage = editMessage.getText().toString();
-                                // WYSYŁANIE WIADOMOŚCI W FORMACIE: MSG 2 Krasnoludzki NickFury Siema kto PL?
-                            chatMessage = "MSG " + selectedLanguageID + " " + nick + " " + chatMessage;
-                            out.println(chatMessage);
+                            String outgoingChatMessage = editMessage.getText().toString();
+                            // WYSYŁANIE WIADOMOŚCI W FORMACIE: MSG 2 Krasnoludzki NickFury Siema kto PL?
+                            outgoingChatMessage = "MSG " + selectedLanguageID + " " + nick + " " + outgoingChatMessage;
+                            out.println(outgoingChatMessage);
                             editMessage.setText("");
-                            }
-                        });
-                        thread.start();
-                 }
-             break;
+                        }
+                    });
+                    thread.start();
+                }
+                break;
         }
     }
-//////////////////////////////////////////////
+    //////////////////////////////////////////////
     //Metody serwera
-    public void servListenSocket () {
+    public void serverListeningSocket() {
         try {
             server = new ServerSocket(port);
         } catch (IOException e) {
             Log.d("tag", e.getMessage());
         }
         while (true) {
-            CliWork w;
+            CliWork work;
             try {
-                w = new CliWork(server.accept(), chatMessages);
-                listOfClients.add(w);
-                listOfCliOuts.add(w.getOut());
-                Thread t = new Thread(w);
+                work = new CliWork(server.accept(), chatMessages);
+                listOfClients.add(work);
+                listOfCliOuts.add(work.getOut());
+                Thread t = new Thread(work);
                 t.start();
             } catch (IOException e) {
                 Log.d("tag", e.getMessage());
@@ -168,7 +174,7 @@ public class ChatActivity extends AppCompatActivity{
 
         //czy to host? jeśli tak to ma dostępne wszytskie języki, bo jest GM-em
         if (getIntent().getBooleanExtra("is_host", false)) {
-           return allLanguageList;
+            return allLanguageList;
         } else {
             //wczytywanie tablicy zadeklarowanych w log activity języków, jesli nie host
             avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
@@ -216,7 +222,7 @@ public class ChatActivity extends AppCompatActivity{
 
         Spinner spinner = findViewById(R.id.spinner_jezyki);
 
-    ////////Dzielenie na ID języka i jego nazwę/////////
+        ////////Dzielenie na ID języka i jego nazwę/////////
         final int[] finalLanguageID = new int[finalLanguageList.length];
         final String[] finalLanguageShow = new String[finalLanguageList.length];
 
@@ -225,7 +231,7 @@ public class ChatActivity extends AppCompatActivity{
             finalLanguageID[i] = Integer.parseInt(tmp[0]);
             finalLanguageShow[i] = tmp[1];
         }
-    //////////////////////////////////////////////////
+        //////////////////////////////////////////////////
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, finalLanguageShow);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);

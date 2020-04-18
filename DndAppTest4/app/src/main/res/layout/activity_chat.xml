@@ -14,10 +14,10 @@
         android:text="tu server IP"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.439"
+        app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nickInfoTxt2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.003" />
 
     <EditText
         android:id="@+id/chatETxt"
@@ -84,7 +84,7 @@
         android:text="tu nick"
         app:layout_constraintBottom_toTopOf="@+id/spinner_jezyki"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toEndOf="@+id/nickInfoTxt1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.047" />
@@ -103,20 +103,31 @@
 
     <ScrollView
         android:id="@+id/chat"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/spinner_jezyki"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/portInfoTxt2"
-        app:layout_constraintVertical_bias="0.451">
+        app:layout_constraintTop_toBottomOf="@+id/portInfoTxt2">
 
-        <TextView
-            android:id="@+id/replyFromServer"
+        <LinearLayout
+            android:id="@+id/tips"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/replyFromServer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="\n\n Napisz coś!" />
+            <!-- android:textColor="#4f4f4f"
+                android:textSize="25sp"
+                android:textStyle="bold" />-->
+
+        </LinearLayout>
     </ScrollView>
 
     <TextView
