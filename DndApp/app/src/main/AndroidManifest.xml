@@ -12,11 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MkServActivity"></activity>
-        <activity android:name=".InfoActivity" />
-        <activity android:name=".ChatActivity" />
-        <activity android:name=".LogActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.dndapp.MkServActivity"></activity>
+        <activity android:name="com.example.dndapp.InfoActivity" />
+        <activity android:name="com.example.dndapp.ChatActivity" />
+        <activity android:name="com.example.dndapp.LogActivity" />
+        <activity android:name="com.example.dndapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

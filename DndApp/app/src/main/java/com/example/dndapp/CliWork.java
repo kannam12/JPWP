@@ -19,9 +19,10 @@ public class CliWork implements Runnable {
     public static List<PrintWriter> klienci = new ArrayList<>();
 
 
-    CliWork (Socket client, TextView textArea) {
+    CliWork (Socket client, TextView textArea, ChatActivity chatActivity) {
         this.client = client;
         this.textArea = textArea;
+        this.chatActivity = chatActivity;
     }
     public PrintWriter getOut () throws IOException {
         return new PrintWriter(client.getOutputStream(), true);
@@ -47,13 +48,13 @@ public class CliWork implements Runnable {
                 for (int i = 0; i < klienci.size(); i++) {
                     klienci.get(i).println(receivedFromClientLine);
                 }
-                /*final String finalReceivedFromClientLine = receivedFromClientLine;
+                final String finalReceivedFromClientLine = receivedFromClientLine;
                 chatActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         textArea.append(finalReceivedFromClientLine);
                     }
-                });*/
+                });
             } catch (IOException e) {
                 Log.d("tag", e.getMessage());
             }
