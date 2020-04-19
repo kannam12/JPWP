@@ -21,14 +21,16 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class ChatActivity extends AppCompatActivity{
 
     String nick;
     String serverIP;
+    String separator = "@";
     int port;
     int selectedLanguageID;
-    boolean[] avaliableLanguages;
+    boolean[] availableLanguages;
     private EditText editMessage;
     private TextView chatMessages;
     public Socket socket;
@@ -59,55 +61,12 @@ public class ChatActivity extends AppCompatActivity{
         });
         thread.start();
     }
-
-    //Metody klienta
-    public void clientListeningSocket() {
-        try {
-            socket = new Socket (serverIP, port);
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            boolean loop = true;
-            while(loop){
-                final String incomingLine = in.readLine();
-                final String message = protocol(incomingLine);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        chatMessages.append("\n" + getNick(incomingLine) + ": " + message);
-                    }
-                });
-            }
-        } catch (IOException e){
-            Log.d("tag", Objects.requireNonNull(e.getMessage()));
-        }
-    }
-
-
-    public void onClick (View view) {
-        switch (view.getId()){
-            case R.id.sendBtn:
-                if (!isHost()) {
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            String outgoingChatMessage = editMessage.getText().toString();
-                            outgoingChatMessage = "MSG " + selectedLanguageID + " " + nick + " " + outgoingChatMessage;
-                            out.println(outgoingChatMessage);
-                            editMessage.setText("");
-                            }
-                        });
-                        thread.start();
-                 }
-             break;
-        }
-    }
-
-    //Metody serwera
+    //Socket dla servera
     public void serverListeningSocket() {
         try {
             server = new ServerSocket(port);
         } catch (IOException e) {
-            Log.d("tag", e.getMessage());
+            Log.d("tag", Objects.requireNonNull(e.getMessage()));
         }
         while (true) {
             CliWork work;
@@ -118,109 +77,118 @@ public class ChatActivity extends AppCompatActivity{
                 Thread t = new Thread(work);
                 t.start();
             } catch (IOException e) {
-                Log.d("tag", e.getMessage());
+                Log.d("tag", Objects.requireNonNull(e.getMessage()));
             }
         }
     }
-
-    public String protocol (String incomingLine) {
-        String[] tmp = incomingLine.split(" ",4);
-        //final String statement = tmp[0];      //MSG
-        final String receivedLanguageID = tmp[1];
-        final String senderNick = tmp[2];
-        String tmpMessage = tmp[3];
-
-        int counter = 0;
-        avaliableLanguages = getAvaliableLanguages();
-        for (int i = 0; i < avaliableLanguages.length; i++){
-            if (Integer.parseInt(receivedLanguageID) == i && avaliableLanguages[i]) {
-                counter = 1;
+    //Socket dla klienta
+    public void clientListeningSocket() {
+        try {
+            socket = new Socket (serverIP, port);
+            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            boolean loop = true;
+            while(loop){
+                final String incomingLine = in.readLine();
+                final String displayLine = organizingProtocol(incomingLine);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //chatMessages.append("\n" + getNick(incomingLine) + ": " + message);
+                        chatMessages.append("\n" + displayLine);
+                    }
+                });
             }
+        } catch (IOException e){
+            Log.d("tag", Objects.requireNonNull(e.getMessage()));
         }
-        if (counter == 0){
-            tmpMessage = "!@#$%^&*()_+{}|:";
-        }
-        return tmpMessage;
-    }
-    public String getNick (String incomingLine) {
-        String[] tmp = incomingLine.split(" ",4);
-        final String senderNick = tmp[2];
-        return senderNick;
     }
 
-    public static List<PrintWriter> getListOfCliOuts() {
-        return  listOfCliOuts;
-    }
-
-    public boolean[] getAvaliableLanguages(){
-        return getIntent().getBooleanArrayExtra("avaliableLanguages");
-    }
-
-    public String[] mkPersonalLanguageList(){
-
-        //wczytywanie tablicy z values/string.xml
-        String[] allLanguageList = getResources().getStringArray(R.array.languages_array);
-
-        //czy to host? jeśli tak to ma dostępne wszytskie języki, bo jest GM-em
-        if (getIntent().getBooleanExtra("is_host", false)) {
-           return allLanguageList;
-        } else {
-            //wczytywanie tablicy zadeklarowanych w log activity języków, jesli nie host
-            avaliableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
-            int counter = 0;
-            assert avaliableLanguages != null;
-            for (boolean avaliableLanguage : avaliableLanguages) {
-                if (avaliableLanguage) {
-                    counter++;
+    public void onClick (final View view) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                switch (view.getId()) {
+                    case R.id.sendBtn:
+                        String outgoingChatMessage = editMessage.getText().toString();
+                        outgoingChatMessage = "MSG" + separator + selectedLanguageID + separator + nick + separator + outgoingChatMessage;
+                        out.println(outgoingChatMessage);
+                        editMessage.setText("");
+                        break;
+                    case R.id.d20Btn:
+                        String outgoingDiceRoll = Integer.toString(mkDiceRoll(20));
+                        outgoingDiceRoll = "DIC" + separator + 20 + separator + nick + separator + outgoingDiceRoll;
+                        out.println(outgoingDiceRoll);
+                        break;
+                    case R.id.d4Btn:
+                        outgoingDiceRoll = Integer.toString(mkDiceRoll(4));
+                        outgoingDiceRoll = "DIC" + separator + 4 + separator + nick + separator + outgoingDiceRoll;
+                        out.println(outgoingDiceRoll);
+                        break;
                 }
             }
-            //adaptowanie jednego do drugiego - KARTA FUZJI
-            String[] languagePersonalList = new String[counter];
-            counter = 0;
-            for (int i = 0; i < avaliableLanguages.length; i++) {
-                if (avaliableLanguages[i]) {
-                    languagePersonalList[counter] = allLanguageList[i];
-                    counter++;
+        });
+        thread.start();
+    }
+
+    public String organizingProtocol (String incomingLine) {
+        String[] tmp = incomingLine.split(separator, 4);
+        final String statement = tmp[0];      //MSG lub DIC
+
+        switch (statement){
+
+            case "MSG":
+                final String receivedLanguageID = tmp[1];
+                final String senderNick = tmp[2];
+                String message = tmp[3];
+                int counter = 0;
+                availableLanguages = getAvailableLanguages();
+                for (int i = 0; i < availableLanguages.length; i++){
+                    if (Integer.parseInt(receivedLanguageID) == i && availableLanguages[i]) {
+                        counter = 1;
+                    }
                 }
-            }
-            return languagePersonalList;
+                if (counter == 0) {
+                    StringBuilder tmpMessage = new StringBuilder();
+                    String[] pattern = {"~","!","@","#","$","%","^","&","*","+","=","<",">"};       //len 13
+                    Random generator = new Random();
+
+                    for (int i = 0; i < message.length(); i++) {
+                        tmpMessage.append(pattern[generator.nextInt(pattern.length)]);
+                    }
+                    message = tmpMessage.toString();
+                }
+                return senderNick +": " + message;
+
+            case "DIC":
+                final String diceType = tmp[1];
+                final String rollerNick = tmp [2];
+                final String roll = tmp[3];
+
+                return rollerNick + " wyrzucił " + roll + " na d" +diceType +"!";
         }
+        return "";
+    }
+    public int mkDiceRoll(int diceType){
+        Random generator = new Random();
+        return generator.nextInt(diceType) + 1;
     }
 
-    public boolean isHost() {
-        return getIntent().getBooleanExtra("is_host", false);
-    }
-
-    public void extraInfo(){
-        //pobieranie info o nicku z log/serv activity
-        nick = getIntent().getStringExtra("nick");
-        TextView textView = findViewById(R.id.nickInfoTxt2);
-        textView.setText(nick);
-
-        String port_tmp = getIntent().getStringExtra("port");
-        textView = findViewById(R.id.portInfoTxt2);
-        textView.setText(port_tmp);
-        assert port_tmp != null;
-        port = Integer.parseInt(port_tmp);
-
-        serverIP = getIntent().getStringExtra("servIP");
-        textView = findViewById(R.id.IPinfoTxt2);
-        textView.setText(serverIP);
-    }
+    //Funkcje wykonujące się przy uruchomieniu aktywności
     public void addSpinner(final String[] finalLanguageList) {
 
         Spinner spinner = findViewById(R.id.spinner_jezyki);
 
-    ////////Dzielenie na ID języka i jego nazwę/////////
+        ////////Dzielenie na ID języka i jego nazwę/////////
         final int[] finalLanguageID = new int[finalLanguageList.length];
         final String[] finalLanguageShow = new String[finalLanguageList.length];
 
         for (int i = 0; i < finalLanguageList.length; i++){
-            String[] tmp = finalLanguageList[i].split("@", 2);
+            String[] tmp = finalLanguageList[i].split(separator, 2);
             finalLanguageID[i] = Integer.parseInt(tmp[0]);
             finalLanguageShow[i] = tmp[1];
         }
-    //////////////////////////////////////////////////
+        //////////////////////////////////////////////////
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, finalLanguageShow);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -238,5 +206,60 @@ public class ChatActivity extends AppCompatActivity{
                 selectedLanguageID = finalLanguageID[0];
             }
         });
+    }
+    public String[] mkPersonalLanguageList(){
+
+        //wczytywanie tablicy z values/string.xml
+        String[] allLanguageList = getResources().getStringArray(R.array.languages_array);
+
+        //czy to host? jeśli tak to ma dostępne wszytskie języki, bo jest GM-em
+        if (getIntent().getBooleanExtra("is_host", false)) {
+            return allLanguageList;
+        } else {
+            //wczytywanie tablicy zadeklarowanych w log activity języków, jesli nie host
+            availableLanguages = getIntent().getBooleanArrayExtra("avaliableLanguages");
+            int counter = 0;
+            assert availableLanguages != null;
+            for (boolean availableLanguage : availableLanguages) {
+                if (availableLanguage) {
+                    counter++;
+                }
+            }
+            //adaptowanie jednego do drugiego - KARTA FUZJI
+            String[] languagePersonalList = new String[counter];
+            counter = 0;
+            for (int i = 0; i < availableLanguages.length; i++) {
+                if (availableLanguages[i]) {
+                    languagePersonalList[counter] = allLanguageList[i];
+                    counter++;
+                }
+            }
+            return languagePersonalList;
+        }
+    }
+    public void extraInfo(){
+        //pobieranie info o nicku z log/serv activity
+        nick = getIntent().getStringExtra("nick");
+        TextView textView = findViewById(R.id.nickInfoTxt2);
+        textView.setText(nick);
+
+        String port_tmp = getIntent().getStringExtra("port");
+        textView = findViewById(R.id.portInfoTxt2);
+        textView.setText(port_tmp);
+        assert port_tmp != null;
+        port = Integer.parseInt(port_tmp);
+
+        serverIP = getIntent().getStringExtra("servIP");
+        textView = findViewById(R.id.IPinfoTxt2);
+        textView.setText(serverIP);
+    }
+    public boolean[] getAvailableLanguages(){
+        return getIntent().getBooleanArrayExtra("avaliableLanguages");
+    }
+    public boolean isHost() {
+        return getIntent().getBooleanExtra("is_host", false);
+    }
+    public static List<PrintWriter> getListOfCliOuts() {
+        return  listOfCliOuts;
     }
 }
