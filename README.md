@@ -1,4 +1,4 @@
 # JPWP
- Project JPWP
+Project JPWP
 DndApp - kod aplikacji
-DndAppTest4 - klon aplikacji DndApp używany podczas testów
+DndAppKlon1, DndAppKlon2 - klony aplikacji DndApp przygotowane do prezentacji na emulatorach
