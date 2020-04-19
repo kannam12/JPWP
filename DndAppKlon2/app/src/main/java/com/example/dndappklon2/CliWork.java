@@ -1,4 +1,4 @@
-package com.example.dndapp;
+package com.example.dndappklon2;
 
 import android.util.Log;
 import android.widget.TextView;

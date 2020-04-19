@@ -1,4 +1,4 @@
-package com.example.dndapp;
+package com.example.dndappklon1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
