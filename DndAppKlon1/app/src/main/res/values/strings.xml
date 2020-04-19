@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">DndAppKlon1</string>
+    <string name="lan0">Kanoniczny</string>
+    <string name="lan1">Elficki</string>
+    <string name="lan2">Krasnoludzki</string>
+    <string name="lan3">Druidzki</string>
+    <string name="lan4">Smoczy</string>
+    <string name="lan5">Niebiański</string>
+    <string name="lan6">Piekielny</string>
+
+    <string name="mainInfo">Hello Adventurer!</string>
+    <string name="mkServInfo">Aby połączyć się jako serwer wpisz numer portu oraz swój nick:</string>
+    <string name="logInfo">Aby przejść dalej podaj swój nick oraz wybierz znane Ci języki:</string>
+
+    <string name="mainBtn2mkServ">Be a Game master, be a server</string>
+    <string name="mainBtn2log">Go ahead (as a client)</string>
+    <string name="mainBtn2info">Show me an app info</string>
+
+    <string name="enter_host_ip">Enter host IP:</string>
+    <string name="enter_port">Port:</string>
+    <string name="enter_nick">Wpisz swój nick:</string>
+    <string name="enter_message">Enter message…</string>
+
+    <string name="go_in">Go In!</string>
+    <string name="chat_lan1">Język:</string>
+    <string name="chat_nick1"><b>Twój nick to:</b></string>
+    <string name="chat_IP1"><b>IP serwera:</b></string>
+    <string name="chat_port1"><b>Port ID:</b></string>
+
+    <string name="info_title"><b>Słowo od Autorów:</b></string>
+    <string name="info_signatures"><i>Ania i Krzysztof</i></string>
+    <string name="info_content">Aplikacja jest czatem stworzonym na potrzeby komunikacji wewnątrz drużyny poszukiwaczy przygód. Na grafikach znajdują się sylwetki naszych postaci.\nGrafiki: Borowsky</string>
+
+
+    // tu są te stringi co można je zapisywać i potem odnosić się do nich poprzez id
+    // w sensie np. jak są różne języki
+
+    // tu mamy zawartość naszego spinnera z językami w ChatActivity
+    <string-array name="languages_array">
+        <item>0@Kanoniczny</item>
+        <item>1@Elficki</item>
+        <item>2@Krasnoludzki</item>
+        <item>3@Druidzki</item>
+        <item>4@Smoczy</item>
+        <item>5@Niebiański</item>
+        <item>6@Piekielny</item>
+    </string-array>
+
+</resources>
