@@ -193,7 +193,7 @@ public class ChatActivity extends AppCompatActivity{
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int choiceID, long position) {
                 selectedLanguageID = finalLanguageID[(int)position];
-                Toast.makeText(ChatActivity.this, "Wybrałeś język: " + (finalLanguageShow[choiceID]) +", zapisano ID: " + selectedLanguageID, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChatActivity.this, "Wybrałeś język: " + (finalLanguageShow[choiceID]), Toast.LENGTH_SHORT).show();
             }
 
             @Override
